@@ -1,0 +1,425 @@
+mysql> \. c:/150a/apatrick_assignment07.sql
+--------------
+/*  Assignment07.sql 
+    Andrew Patrick
+    CS 150A, Fall 2021 */
+    
+USE restaurant
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+/* Question 01 : For each order, display the order ID and order date
+   along with the customer ID, first name, and last name of the
+   customer for which the order was created. */
+
+SELECT order_number, order_date, customer_id, first_name, last_name
+FROM orders
+JOIN customers ON cust_id = customer_id
+ORDER BY order_number
+--------------
+
++--------------+------------+-------------+------------+-------------+
+| order_number | order_date | customer_id | first_name | last_name   |
++--------------+------------+-------------+------------+-------------+
+|         5343 | 2020-01-03 |          35 | Zachary    | Peter       |
+|         5363 | 2020-10-03 |          20 | Ryan       | Jacob       |
+|         5393 | 2020-08-03 |          45 | Willie     | Bruce       |
+|         5623 | 2020-04-05 |           3 | Michael    | John        |
+|         5679 | 2020-04-03 |          20 | Ryan       | Jacob       |
+|         5681 | 2020-04-04 |          23 | Stephen    | Larry       |
+|         5682 | 2020-05-09 |          40 | Billy      | Marilyn     |
+|         5683 | 2020-05-09 |          50 | Philip     | Judy        |
+|         5690 | 2020-04-21 |           6 | Christi    | Thomas      |
+|         5691 | 2020-07-03 |          29 | Patrick    | Jack        |
+|         5693 | 2020-08-19 |           7 | Charles    | Christopher |
+|         5694 | 2020-07-03 |          30 | Philip     | Dennis      |
+|         5773 | 2020-04-21 |           6 | Christi    | Thomas      |
+|         5783 | 2020-04-05 |           3 | Michael    | John        |
+|         5791 | 2020-05-09 |          40 | Billy      | Marilyn     |
+|         5792 | 2020-05-09 |          50 | Philip     | Judy        |
+|         5793 | 2020-08-03 |          45 | Willie     | Bruce       |
+|         5794 | 2020-07-03 |          30 | Philip     | Dennis      |
+|         5798 | 2020-03-03 |          10 | Thomas     | Rolston     |
+|         5799 | 2020-04-03 |          20 | Ryan       | Jacob       |
+|         6693 | 2020-10-03 |          43 | Evita      | Hodcroft    |
+|         7383 | 2020-10-03 |          43 | Evita      | Hodcroft    |
+|         7693 | 2020-10-03 |          20 | Ryan       | Jacob       |
++--------------+------------+-------------+------------+-------------+
+23 rows in set (0.00 sec)
+
+--------------
+/* Question 02 : For each order placed on 04/24/2020, write a SQL
+   statement that lists the order number, customer ID, first name,
+   and last name of the customer for which the order was created. */
+
+SELECT order_number, customer_id, first_name, last_name
+FROM orders
+JOIN customers ON cust_id = customer_id
+    AND order_date = '2020-04-24'
+ORDER BY order_number
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+    
+    
+/* Question 03 : For each order, list the item number, order date,
+   order ID, quantity ordered, and price for each food item. */
+
+SELECT o.order_number, o.order_date, ol.item_number, ol.quantity, fi.price
+FROM orders o
+JOIN order_lines ol ON o.order_number = ol.order_number
+JOIN food_items fi ON ol.item_number = fi.item_number
+ORDER BY order_number, item_number
+--------------
+
++--------------+------------+-------------+----------+-------+
+| order_number | order_date | item_number | quantity | price |
++--------------+------------+-------------+----------+-------+
+|         5343 | 2020-01-03 |          80 |        2 |  8.09 |
+|         5343 | 2020-01-03 |          85 |        1 |  3.59 |
+|         5363 | 2020-10-03 |          83 |        1 |  9.59 |
+|         5393 | 2020-08-03 |          95 |        4 |  1.09 |
+|         5623 | 2020-04-05 |          90 |        2 |  1.09 |
+|         5623 | 2020-04-05 |          91 |        2 |  1.09 |
+|         5623 | 2020-04-05 |          92 |        1 |  3.59 |
+|         5682 | 2020-05-09 |          90 |        1 |  1.09 |
+|         5682 | 2020-05-09 |          95 |        2 |  1.09 |
+|         5683 | 2020-05-09 |          93 |        2 |  3.59 |
+|         5683 | 2020-05-09 |          95 |        1 |  1.09 |
+|         5691 | 2020-07-03 |          92 |        2 |  3.59 |
+|         5691 | 2020-07-03 |          96 |        2 |  3.59 |
+|         5693 | 2020-08-19 |          90 |        2 |  1.09 |
+|         5693 | 2020-08-19 |          95 |        1 |  1.09 |
+|         5694 | 2020-07-03 |          90 |        2 |  1.09 |
+|         5694 | 2020-07-03 |          97 |        2 |  3.59 |
+|         5773 | 2020-04-21 |          80 |        2 |  8.09 |
+|         5783 | 2020-04-05 |          80 |        2 |  8.09 |
+|         5783 | 2020-04-05 |          85 |        1 |  3.59 |
+|         5791 | 2020-05-09 |          82 |        2 | 10.09 |
+|         5791 | 2020-05-09 |          83 |        3 |  9.59 |
+|         5791 | 2020-05-09 |          86 |        2 |  5.75 |
+|         5792 | 2020-05-09 |          80 |        1 |  8.09 |
+|         5792 | 2020-05-09 |          85 |        2 |  3.59 |
+|         5793 | 2020-08-03 |          81 |        2 | 13.59 |
+|         5793 | 2020-08-03 |          82 |        1 | 10.09 |
+|         5793 | 2020-08-03 |          83 |        2 |  9.59 |
+|         5793 | 2020-08-03 |          85 |        1 |  3.59 |
+|         5793 | 2020-08-03 |          90 |        2 |  1.09 |
+|         5793 | 2020-08-03 |          93 |        1 |  3.59 |
+|         5793 | 2020-08-03 |          95 |        1 |  1.09 |
+|         5794 | 2020-07-03 |          80 |        2 |  8.09 |
+|         5794 | 2020-07-03 |          87 |        2 |  3.59 |
+|         5798 | 2020-03-03 |          80 |        2 |  8.09 |
+|         5798 | 2020-03-03 |          87 |        1 |  3.59 |
+|         5799 | 2020-04-03 |          82 |        1 | 10.09 |
+|         6693 | 2020-10-03 |          93 |        1 |  3.59 |
+|         7383 | 2020-10-03 |          80 |        2 |  8.09 |
+|         7383 | 2020-10-03 |          83 |        1 |  9.59 |
+|         7693 | 2020-10-03 |          90 |        2 |  1.09 |
++--------------+------------+-------------+----------+-------+
+41 rows in set (0.00 sec)
+
+--------------
+/* Question 04 : For each order, list the food item number, order date,
+   order number, and description for each item. Order the rows by
+   category and then by order number. */
+
+SELECT o.order_number, o.order_date, ol.item_number, fi.description
+FROM orders o
+JOIN order_lines ol ON o.order_number = ol.order_number
+JOIN food_items fi ON ol.item_number = fi.item_number
+ORDER BY category_id, order_number
+--------------
+
++--------------+------------+-------------+------------------------+
+| order_number | order_date | item_number | description            |
++--------------+------------+-------------+------------------------+
+|         5343 | 2020-01-03 |          80 | Cheeseburger           |
+|         5623 | 2020-04-05 |          90 | Hamburger              |
+|         5682 | 2020-05-09 |          90 | Hamburger              |
+|         5693 | 2020-08-19 |          90 | Hamburger              |
+|         5694 | 2020-07-03 |          90 | Hamburger              |
+|         5773 | 2020-04-21 |          80 | Cheeseburger           |
+|         5783 | 2020-04-05 |          80 | Cheeseburger           |
+|         5792 | 2020-05-09 |          80 | Cheeseburger           |
+|         5793 | 2020-08-03 |          81 | Double Cheeseburger    |
+|         5793 | 2020-08-03 |          90 | Hamburger              |
+|         5794 | 2020-07-03 |          80 | Cheeseburger           |
+|         5798 | 2020-03-03 |          80 | Cheeseburger           |
+|         7383 | 2020-10-03 |          80 | Cheeseburger           |
+|         7693 | 2020-10-03 |          90 | Hamburger              |
+|         5363 | 2020-10-03 |          83 | Chicken Sandwich       |
+|         5623 | 2020-04-05 |          91 | Spicy Chicken Sandwich |
+|         5683 | 2020-05-09 |          93 | Chicken McNuggets      |
+|         5791 | 2020-05-09 |          82 | Spicy Chicken McBite   |
+|         5791 | 2020-05-09 |          83 | Chicken Sandwich       |
+|         5793 | 2020-08-03 |          82 | Spicy Chicken McBite   |
+|         5793 | 2020-08-03 |          83 | Chicken Sandwich       |
+|         5793 | 2020-08-03 |          93 | Chicken McNuggets      |
+|         5794 | 2020-07-03 |          87 | BBQ Snack Wrap         |
+|         5798 | 2020-03-03 |          87 | BBQ Snack Wrap         |
+|         5799 | 2020-04-03 |          82 | Spicy Chicken McBite   |
+|         6693 | 2020-10-03 |          93 | Chicken McNuggets      |
+|         7383 | 2020-10-03 |          83 | Chicken Sandwich       |
+|         5694 | 2020-07-03 |          97 | Caesar Salad           |
+|         5343 | 2020-01-03 |          85 | Apple Slices           |
+|         5783 | 2020-04-05 |          85 | Apple Slices           |
+|         5792 | 2020-05-09 |          85 | Apple Slices           |
+|         5793 | 2020-08-03 |          85 | Apple Slices           |
+|         5623 | 2020-04-05 |          92 | Iced Latte             |
+|         5691 | 2020-07-03 |          92 | Iced Latte             |
+|         5791 | 2020-05-09 |          86 | SRoast Coffee          |
+|         5393 | 2020-08-03 |          95 | Baked Apple Pie        |
+|         5682 | 2020-05-09 |          95 | Baked Apple Pie        |
+|         5683 | 2020-05-09 |          95 | Baked Apple Pie        |
+|         5691 | 2020-07-03 |          96 | Sugar Cookie           |
+|         5693 | 2020-08-19 |          95 | Baked Apple Pie        |
+|         5793 | 2020-08-03 |          95 | Baked Apple Pie        |
++--------------+------------+-------------+------------------------+
+41 rows in set (0.00 sec)
+
+--------------
+/* Question 05 : List the order number and order date for each order that
+   contains the food item description 'Chicken Sandwich'. */
+
+SELECT o.order_number, o.order_date
+FROM orders o
+JOIN order_lines ol ON o.order_number = ol.order_number
+JOIN food_items fi ON ol.item_number = fi.item_number
+WHERE fi.description = 'Chicken Sandwich'
+ORDER BY order_number
+--------------
+
++--------------+------------+
+| order_number | order_date |
++--------------+------------+
+|         5363 | 2020-10-03 |
+|         5791 | 2020-05-09 |
+|         5793 | 2020-08-03 |
+|         7383 | 2020-10-03 |
++--------------+------------+
+4 rows in set (0.00 sec)
+
+--------------
+/* Question 06 : List the order number and order date for each order 
+   created for Philip Dennis but that does not contain the
+   food item description 'Shack Burger'. */
+
+SELECT DISTINCT o.order_number, o.order_date
+FROM orders o
+JOIN order_lines ol ON o.order_number = ol.order_number
+JOIN food_items fi ON ol.item_number = fi.item_number
+JOIN customers c ON o.cust_id = c.customer_id
+WHERE c.first_name = 'Philip'
+    AND c.last_name = 'Dennis'
+    AND fi.description != 'Shack Burger'
+ORDER BY order_number
+--------------
+
++--------------+------------+
+| order_number | order_date |
++--------------+------------+
+|         5694 | 2020-07-03 |
+|         5794 | 2020-07-03 |
++--------------+------------+
+2 rows in set (0.00 sec)
+
+--------------
+    
+
+/* Question 08 : Return the first name, last name, and department name
+   for all employees incl those not assigned to a department. */
+
+SELECT first_name, last_name, department_id
+FROM staff
+LEFT JOIN departments ON dept_id = department_id
+ORDER BY first_name
+--------------
+
++------------+-----------+---------------+
+| first_name | last_name | department_id |
++------------+-----------+---------------+
+| Alex       | Zayden    |            20 |
+| Arthur     | Luka      |            20 |
+| Baylor     | Collin    |            50 |
+| Colton     | Landon    |            10 |
+| Derek      | Raymond   |            30 |
+| Emilia     | Nasir     |            50 |
+| Erik       | Emanuel   |            50 |
+| Frank      | Milan     |            50 |
+| Ivan       | Diego     |            20 |
+| Jake       | Manuel    |            40 |
+| Jayden     | Nolan     |            10 |
+| Jere       | Colson    |            50 |
+| Katrine    | Griffin   |            20 |
+| Layla      | Justin    |            20 |
+| Louis      | Zayn      |            30 |
+| Marco      | Andy      |            50 |
+| Marcus     | Jeremy    |            20 |
+| Mark       | Calvin    |            20 |
+| Marvin     | Edison    |            50 |
+| Maxwell    | Cooper    |            10 |
+| Maya       | Spurman   |            40 |
+| Nicolas    | Patrick   |            20 |
+| Nora       | Marcos    |            60 |
+| Omar       | Lane      |            30 |
+| Peter      | Steven    |            20 |
+| Rayna      | Rafael    |            30 |
+| Reed       | Ayaan     |            50 |
+| Rylan      | Ricardo   |            50 |
+| Sarah      | Phillip   |            60 |
+| Taylor     | Yusuf     |            60 |
++------------+-----------+---------------+
+30 rows in set (0.00 sec)
+
+--------------
+/* Question 09 : Show all shift descriptions and shift assignment
+   dates, even if no date assigned for each shift description. */
+
+SELECT description, shift_assign_date
+FROM shifts
+LEFT JOIN shift_assignments USING (code)
+ORDER BY description DESC
+--------------
+
++-------------+-------------------+
+| description | shift_assign_date |
++-------------+-------------------+
+| 8am to 12pm | 2020-08-03        |
+| 8am to 12pm | 2020-03-03        |
+| 8am to 12pm | 2020-05-03        |
+| 8am to 12pm | 2020-04-03        |
+| 8am to 12pm | 2020-02-03        |
+| 6pm to 10pm | 2020-04-03        |
+| 6pm to 10pm | 2020-04-03        |
+| 6pm to 10pm | 2020-03-03        |
++-------------+-------------------+
+8 rows in set (0.00 sec)
+
+--------------
+/* Question 10 : Show customers and orders, a customer must be included
+   even if the customer has had no orders. */
+
+SELECT customer_id, last_name, order_date
+FROM customers
+LEFT JOIN orders ON customer_id = cust_id
+ORDER BY customer_id, order_date
+--------------
+
++-------------+-------------+------------+
+| customer_id | last_name   | order_date |
++-------------+-------------+------------+
+|           1 | James       | NULL       |
+|           2 | Robert      | NULL       |
+|           3 | John        | 2020-04-05 |
+|           3 | John        | 2020-04-05 |
+|           4 | William     | NULL       |
+|           5 | Joseph      | NULL       |
+|           6 | Thomas      | 2020-04-21 |
+|           6 | Thomas      | 2020-04-21 |
+|           7 | Christopher | 2020-08-19 |
+|           8 | Matthew     | NULL       |
+|           9 | Josephsen   | NULL       |
+|          10 | Rolston     | 2020-03-03 |
+|          11 | Donald      | NULL       |
+|          12 | Abbay       | NULL       |
+|          13 | Paul        | NULL       |
+|          14 | Joshua      | NULL       |
+|          15 | Kevin       | NULL       |
+|          16 | George      | NULL       |
+|          17 | Ronald      | NULL       |
+|          18 | Jason       | NULL       |
+|          19 | Enderson    | NULL       |
+|          20 | Jacob       | 2020-04-03 |
+|          20 | Jacob       | 2020-04-03 |
+|          20 | Jacob       | 2020-10-03 |
+|          20 | Jacob       | 2020-10-03 |
+|          21 | Nicholas    | NULL       |
+|          22 | Jonathan    | NULL       |
+|          23 | Larry       | 2020-04-04 |
+|          24 | Scott       | NULL       |
+|          25 | Benjamin    | NULL       |
+|          26 | Gregory     | NULL       |
+|          27 | Frank       | NULL       |
+|          28 | Raymond     | NULL       |
+|          29 | Jack        | 2020-07-03 |
+|          30 | Dennis      | 2020-07-03 |
+|          30 | Dennis      | 2020-07-03 |
+|          31 | Tyler       | NULL       |
+|          32 | Jose        | NULL       |
+|          33 | Adam        | NULL       |
+|          34 | Nathan      | NULL       |
+|          35 | Peter       | 2020-01-03 |
+|          36 | Ethan       | NULL       |
+|          37 | Austin      | NULL       |
+|          38 | Bryan       | NULL       |
+|          39 | Jordan      | NULL       |
+|          40 | Marilyn     | 2020-05-09 |
+|          40 | Marilyn     | 2020-05-09 |
+|          41 | Donna       | NULL       |
+|          42 | Patillo     | NULL       |
+|          43 | Hodcroft    | 2020-10-03 |
+|          43 | Hodcroft    | 2020-10-03 |
+|          44 | Gabby       | NULL       |
+|          45 | Bruce       | 2020-08-03 |
+|          45 | Bruce       | 2020-08-03 |
+|          46 | Ralph       | NULL       |
+|          47 | Diana       | NULL       |
+|          48 | Galletly    | NULL       |
+|          49 | Bobby       | NULL       |
+|          50 | Judy        | 2020-05-09 |
+|          50 | Judy        | 2020-05-09 |
++-------------+-------------+------------+
+60 rows in set (0.00 sec)
+
+--------------
+/* Question 11 : Show all employee last names, department IDs, and
+   department names, even if they are not assigned to a department. */
+
+SELECT last_name, dept_id, department_name
+FROM staff
+LEFT JOIN departments ON dept_id = department_id
+ORDER BY last_name
+--------------
+
++-----------+---------+-----------------+
+| last_name | dept_id | department_name |
++-----------+---------+-----------------+
+| Andy      |      50 | Floor Staff     |
+| Ayaan     |      50 | Floor Staff     |
+| Calvin    |      20 | Kitchen Staff   |
+| Collin    |      50 | Floor Staff     |
+| Colson    |      50 | Floor Staff     |
+| Cooper    |      10 | Administration  |
+| Diego     |      20 | Kitchen Staff   |
+| Edison    |      50 | Floor Staff     |
+| Emanuel   |      50 | Floor Staff     |
+| Griffin   |      20 | Kitchen Staff   |
+| Jeremy    |      20 | Kitchen Staff   |
+| Justin    |      20 | Kitchen Staff   |
+| Landon    |      10 | Administration  |
+| Lane      |      30 | Delivery Staff  |
+| Luka      |      20 | Kitchen Staff   |
+| Manuel    |      40 | IT              |
+| Marcos    |      60 | Accounting      |
+| Milan     |      50 | Floor Staff     |
+| Nasir     |      50 | Floor Staff     |
+| Nolan     |      10 | Administration  |
+| Patrick   |      20 | Kitchen Staff   |
+| Phillip   |      60 | Accounting      |
+| Rafael    |      30 | Delivery Staff  |
+| Raymond   |      30 | Delivery Staff  |
+| Ricardo   |      50 | Floor Staff     |
+| Spurman   |      40 | IT              |
+| Steven    |      20 | Kitchen Staff   |
+| Yusuf     |      60 | Accounting      |
+| Zayden    |      20 | Kitchen Staff   |
+| Zayn      |      30 | Delivery Staff  |
++-----------+---------+-----------------+
+30 rows in set (0.00 sec)
+
+mysql> notee

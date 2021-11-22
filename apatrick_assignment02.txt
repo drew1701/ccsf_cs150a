@@ -1,0 +1,348 @@
+mysql> source c:/150a/apatrick_assignment2.sql
+--------------
+/*  Assignment2.sql 
+    Andrew Patrick
+    CS 150A, Fall 2021 */
+    
+USE restaurant
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+/* Query 1 : List the food item number, description,
+   and price for all food items. */
+
+SELECT item_number, description, price
+FROM food_items
+--------------
+
++-------------+------------------------+-------+
+| item_number | description            | price |
++-------------+------------------------+-------+
+|          80 | Cheeseburger           |  8.09 |
+|          81 | Double Cheeseburger    | 13.59 |
+|          82 | Spicy Chicken McBite   | 10.09 |
+|          83 | Chicken Sandwich       |  9.59 |
+|          84 | Side Sala              |  1.09 |
+|          85 | Apple Slices           |  3.59 |
+|          86 | SRoast Coffee          |  5.75 |
+|          87 | BBQ Snack Wrap         |  3.59 |
+|          90 | Hamburger              |  1.09 |
+|          91 | Spicy Chicken Sandwich |  1.09 |
+|          92 | Iced Latte             |  3.59 |
+|          93 | Chicken McNuggets      |  3.59 |
+|          94 | Fruit & Walnuts        |  5.25 |
+|          95 | Baked Apple Pie        |  1.09 |
+|          96 | Sugar Cookie           |  3.59 |
+|          97 | Caesar Salad           |  3.59 |
++-------------+------------------------+-------+
+16 rows in set (0.00 sec)
+
+--------------
+/* Query 2 : List all details of all items, order the
+   output by food item number within price */
+
+SELECT *
+FROM food_items
+ORDER BY price, item_number
+--------------
+
++-------------+-------------+------------------------+-------+--------------+------------+
+| item_number | category_id | description            | price | regular_code | promo_code |
++-------------+-------------+------------------------+-------+--------------+------------+
+|          84 | 300         | Side Sala              |  1.09 | 20           | NULL       |
+|          90 | 100         | Hamburger              |  1.09 | 20           | NULL       |
+|          91 | 200         | Spicy Chicken Sandwich |  1.09 | 20           | NULL       |
+|          95 | 600         | Baked Apple Pie        |  1.09 | 20           | NULL       |
+|          85 | 400         | Apple Slices           |  3.59 | NULL         | 110        |
+|          87 | 200         | BBQ Snack Wrap         |  3.59 | NULL         | 110        |
+|          92 | 500         | Iced Latte             |  3.59 | NULL         | 110        |
+|          93 | 200         | Chicken McNuggets      |  3.59 | NULL         | 110        |
+|          96 | 600         | Sugar Cookie           |  3.59 | NULL         | 110        |
+|          97 | 300         | Caesar Salad           |  3.59 | NULL         | 110        |
+|          94 | 400         | Fruit & Walnuts        |  5.25 | 20           | NULL       |
+|          86 | 500         | SRoast Coffee          |  5.75 | 20           | NULL       |
+|          80 | 100         | Cheeseburger           |  8.09 | 20           | NULL       |
+|          83 | 200         | Chicken Sandwich       |  9.59 | NULL         | 110        |
+|          82 | 200         | Spicy Chicken McBite   | 10.09 | 20           | NULL       |
+|          81 | 100         | Double Cheeseburger    | 13.59 | NULL         | 110        |
++-------------+-------------+------------------------+-------+--------------+------------+
+16 rows in set (0.00 sec)
+
+--------------
+/* Query 3 : List all rows and columns of the orders table. */
+
+SELECT *
+FROM orders
+--------------
+
++--------------+------------+---------+----------+
+| order_number | order_date | cust_id | staff_id |
++--------------+------------+---------+----------+
+|         5343 | 2020-01-03 |      35 |     1544 |
+|         5363 | 2020-10-03 |      20 |      417 |
+|         5393 | 2020-08-03 |      45 |      417 |
+|         5623 | 2020-04-05 |       3 |     1544 |
+|         5679 | 2020-04-03 |      20 |     1597 |
+|         5681 | 2020-04-04 |      23 |     1544 |
+|         5682 | 2020-05-09 |      40 |      417 |
+|         5683 | 2020-05-09 |      50 |      417 |
+|         5690 | 2020-04-21 |       6 |      417 |
+|         5691 | 2020-07-03 |      29 |      417 |
+|         5693 | 2020-08-19 |       7 |     1544 |
+|         5694 | 2020-07-03 |      30 |      524 |
+|         5773 | 2020-04-21 |       6 |      417 |
+|         5783 | 2020-04-05 |       3 |     1544 |
+|         5791 | 2020-05-09 |      40 |      417 |
+|         5792 | 2020-05-09 |      50 |      417 |
+|         5793 | 2020-08-03 |      45 |      417 |
+|         5794 | 2020-07-03 |      30 |      524 |
+|         5798 | 2020-03-03 |      10 |      417 |
+|         5799 | 2020-04-03 |      20 |     1597 |
+|         6693 | 2020-10-03 |      43 |      676 |
+|         7383 | 2020-10-03 |      43 |      676 |
+|         7693 | 2020-10-03 |      20 |      417 |
++--------------+------------+---------+----------+
+23 rows in set (0.00 sec)
+
+--------------
+/* Query 4 : List the order number for each order placed by
+   customer ID 30 on 07/03/2020. */
+
+SELECT *
+FROM orders
+WHERE cust_id = 30 AND order_date = '2020-07-03'
+--------------
+
++--------------+------------+---------+----------+
+| order_number | order_date | cust_id | staff_id |
++--------------+------------+---------+----------+
+|         5694 | 2020-07-03 |      30 |      524 |
+|         5794 | 2020-07-03 |      30 |      524 |
++--------------+------------+---------+----------+
+2 rows in set (0.00 sec)
+
+--------------
+/* Query 5 : Display the order number and date of all orders
+   that were placed before 05/28/2020, use aliases. */
+
+SELECT order_number AS "order number",
+       order_date AS "order date"
+FROM orders
+WHERE order_date < '2020-05-28'
+--------------
+
++--------------+------------+
+| order number | order date |
++--------------+------------+
+|         5343 | 2020-01-03 |
+|         5623 | 2020-04-05 |
+|         5679 | 2020-04-03 |
+|         5681 | 2020-04-04 |
+|         5682 | 2020-05-09 |
+|         5683 | 2020-05-09 |
+|         5690 | 2020-04-21 |
+|         5773 | 2020-04-21 |
+|         5783 | 2020-04-05 |
+|         5791 | 2020-05-09 |
+|         5792 | 2020-05-09 |
+|         5798 | 2020-03-03 |
+|         5799 | 2020-04-03 |
++--------------+------------+
+13 rows in set (0.00 sec)
+
+--------------
+/* Query 6 : Display the unique customer IDs from the
+   orders table for each customer who has placed an
+   order with the restaurant. */
+
+SELECT DISTINCT cust_id
+FROM orders
+--------------
+
++---------+
+| cust_id |
++---------+
+|       3 |
+|       6 |
+|       7 |
+|      10 |
+|      20 |
+|      23 |
+|      29 |
+|      30 |
+|      35 |
+|      40 |
+|      43 |
+|      45 |
+|      50 |
++---------+
+13 rows in set (0.00 sec)
+
+--------------
+/* Query 7 : Returns all customer’s last names and addresses. */
+
+SELECT last_name, address, city, state, zip
+FROM customers
+--------------
+
++-------------+------------------------------+--------------------+-------+-------+
+| last_name   | address                      | city               | state | zip   |
++-------------+------------------------------+--------------------+-------+-------+
+| James       | 44 Kedzie Parkway            | San Francisco      | CA    | 94110 |
+| Robert      | 2 Gale Lane                  | Corona             | CA    | 92878 |
+| John        | 845 Superior Street          | Sacramento         | CA    | 95823 |
+| William     | 42 Grover Place              | San Francisco      | CA    | 94137 |
+| Joseph      | 10 Crownhardt Point          | Riverscustomer_ide | CA    | 92519 |
+| Thomas      | 8315 Norway Maple Terrace    | Burbank            | CA    | 91505 |
+| Christopher | 94 Londonderry Junction      | Van Nuys           | CA    | 91406 |
+| Matthew     | 23 Sugar Point               | San Bernardino     | CA    | 92405 |
+| Josephsen   | 5830 Hovde Alley             | Glendale           | CA    | 91210 |
+| Rolston     | 63 Bobwhite Parkway          | Bakersfield        | CA    | 93381 |
+| Donald      | 5 Riverscustomer_ide Drive   | Brea               | CA    | 92822 |
+| Abbay       | 11 Jay Terrace               | Glendale           | CA    | 91205 |
+| Paul        | 5 Waubesa Circle             | Inglewood          | CA    | 90305 |
+| Joshua      | 3909 Claremont Hill          | Long Beach         | CA    | 90840 |
+| Kevin       | 527 Pearson Pass             | Sacramento         | CA    | 94263 |
+| George      | 121 Dennis Parkway           | Sunnyvale          | CA    | 94089 |
+| Ronald      | 8 Butterfield Trail          | Torrance           | CA    | 90505 |
+| Jason       | 9729 Park Meadow Road        | Pasadena           | CA    | 91117 |
+| Enderson    | 719 Almo Plaza               | Pasadena           | CA    | 91199 |
+| Jacob       | 3 Forster Court              | Anaheim            | CA    | 92825 |
+| Nicholas    | 139 Schmedeman Alley         | Long Beach         | CA    | 90840 |
+| Jonathan    | 35715 Waywood Avenue         | San Francisco      | CA    | 94132 |
+| Larry       | 3051 Susan Hill              | San Diego          | CA    | 92176 |
+| Scott       | 56247 Kinsman Junction       | San Diego          | CA    | 92110 |
+| Benjamin    | 2 Marquette Park             | Sacramento         | CA    | 94297 |
+| Gregory     | 9 East Crossing              | San Diego          | CA    | 92115 |
+| Frank       | 28274 Sutteridge Street      | Sacramento         | CA    | 95894 |
+| Raymond     | 12648 Aberg Point            | Riverscustomer_ide | CA    | 92513 |
+| Jack        | 8 Kings Crossing             | Los Angeles        | CA    | 90050 |
+| Dennis      | 0 Hallows Alley              | Palmdale           | CA    | 93591 |
+| Tyler       | 4341 Dexter Point            | Long Beach         | CA    | 90831 |
+| Jose        | 37 Arapahoe Drive            | San Diego          | CA    | 92170 |
+| Adam        | 241 Schmedeman Street        | Sacramento         | CA    | 95894 |
+| Nathan      | 5107 Blackbird Trail         | Sunnyvale          | CA    | 94089 |
+| Peter       | 78 Park Meadow Street        | San Jose           | CA    | 95150 |
+| Ethan       | 96498 Caliangt Center        | Santa Monica       | CA    | 90410 |
+| Austin      | 68 Emmet Street              | San Francisco      | CA    | 94154 |
+| Bryan       | 9738 Nelson Way              | Fresno             | CA    | 93709 |
+| Jordan      | 6465 Corben Parkway          | San Diego          | CA    | 92115 |
+| Marilyn     | 72554 La Follette Hill       | Los Angeles        | CA    | 90076 |
+| Donna       | 63 New Castle Place          | San Bernardino     | CA    | 92410 |
+| Patillo     | 50 Monterey Point            | Inglewood          | CA    | 90310 |
+| Hodcroft    | 3 Ludington Terrace          | San Jose           | CA    | 95155 |
+| Gabby       | 270 Coolcustomer_idge Street | Moreno Valley      | CA    | 92555 |
+| Bruce       | 70 Kenwood Hill              | San Francisco      | CA    | 94142 |
+| Ralph       | 58842 Algoma Center          | Oakland            | CA    | 94622 |
+| Diana       | 577 Sutteridge Way           | San Francisco      | CA    | 94137 |
+| Galletly    | 9 Waxwing Point              | Los Angeles        | CA    | 90015 |
+| Bobby       | 193 Bartillon Pass           | Redwood City       | CA    | 94064 |
+| Judy        | 016 Fulton Hill              | Bakersfield        | CA    | 93311 |
++-------------+------------------------------+--------------------+-------+-------+
+50 rows in set (0.00 sec)
+
+--------------
+/* Query 8 : Display the customer ID, first name, last name,
+   and phone number of each customer. */
+
+SELECT customer_id, first_name, last_name, phone_number
+FROM customers
+--------------
+
++-------------+------------+-------------+--------------+
+| customer_id | first_name | last_name   | phone_number |
++-------------+------------+-------------+--------------+
+|           1 | Ervin      | James       | 415-738-9986 |
+|           2 | Mary       | Robert      | 951-146-4432 |
+|           3 | Michael    | John        | 916-755-3797 |
+|           4 | Susan      | William     | 415-434-2340 |
+|           5 | Jessica    | Joseph      | 951-971-3942 |
+|           6 | Christi    | Thomas      | 818-562-5116 |
+|           7 | Charles    | Christopher | 310-106-4710 |
+|           8 | Daniel     | Matthew     | 909-434-7688 |
+|           9 | Anthony    | Josephsen   | 818-618-2610 |
+|          10 | Thomas     | Rolston     | 661-402-4612 |
+|          11 | Mark       | Donald      | 714-462-0156 |
+|          12 | Steven     | Abbay       | 323-755-4050 |
+|          13 | Jasmine    | Paul        | 323-937-0499 |
+|          14 | Andrew     | Joshua      | 562-594-4031 |
+|          15 | Kenneth    | Kevin       | 916-699-7096 |
+|          16 | Brian      | George      | 650-273-7925 |
+|          17 | Edward     | Ronald      | 310-929-1593 |
+|          18 | Timothy    | Jason       | 626-351-0029 |
+|          19 | Jeffrey    | Enderson    | 626-636-9576 |
+|          20 | Ryan       | Jacob       | 714-436-2324 |
+|          21 | Gary       | Nicholas    | 562-855-6774 |
+|          22 | Eric       | Jonathan    | 415-574-0173 |
+|          23 | Stephen    | Larry       | 619-290-9456 |
+|          24 | Justin     | Scott       | 949-405-1236 |
+|          25 | Brandon    | Benjamin    | 916-407-8916 |
+|          26 | Samuel     | Gregory     | 619-298-2489 |
+|          27 | Rebbecca   | Frank       | 916-982-8641 |
+|          28 | Alexander  | Raymond     | 951-506-2377 |
+|          29 | Patrick    | Jack        | 213-899-0200 |
+|          30 | Philip     | Dennis      | 661-579-3899 |
+|          31 | Jerry      | Tyler       | 562-448-4422 |
+|          32 | Aaron      | Jose        | 619-161-6053 |
+|          33 | Sela       | Adam        | 916-505-8929 |
+|          34 | Henry      | Nathan      | 408-517-8563 |
+|          35 | Zachary    | Peter       | 408-488-8723 |
+|          36 | Keith      | Ethan       | 310-947-9828 |
+|          37 | Sean       | Austin      | 415-339-8025 |
+|          38 | Dylan      | Bryan       | 559-900-4178 |
+|          39 | Fred       | Jordan      | 619-948-9355 |
+|          40 | Billy      | Marilyn     | 323-267-0587 |
+|          41 | Albert     | Donna       | 951-455-9874 |
+|          42 | Shanda     | Patillo     | 310-421-9679 |
+|          43 | Evita      | Hodcroft    | 408-579-5107 |
+|          44 | Katharyn   | Gabby       | 951-621-1909 |
+|          45 | Willie     | Bruce       | 415-760-4670 |
+|          46 | Roy        | Ralph       | 510-225-1987 |
+|          47 | Louis      | Diana       | 415-163-8413 |
+|          48 | Leo        | Galletly    | 213-598-4949 |
+|          49 | Ramon      | Bobby       | 650-192-1413 |
+|          50 | Philip     | Judy        | 805-924-8761 |
++-------------+------------+-------------+--------------+
+50 rows in set (0.00 sec)
+
+--------------
+/* Query 9 : Display the customer ID, first name, and last
+   name for all customers who live in San Francisco. */
+
+SELECT customer_id, first_name, last_name
+FROM customers
+WHERE city = "San Francisco"
+--------------
+
++-------------+------------+-----------+
+| customer_id | first_name | last_name |
++-------------+------------+-----------+
+|           1 | Ervin      | James     |
+|           4 | Susan      | William   |
+|          22 | Eric       | Jonathan  |
+|          37 | Sean       | Austin    |
+|          45 | Willie     | Bruce     |
+|          47 | Louis      | Diana     |
++-------------+------------+-----------+
+6 rows in set (0.00 sec)
+
+--------------
+/* Query 10 : Display the last name, first name, ID,
+   and phone number from the customers table
+   where customer_id is 36. */
+
+SELECT last_name, first_name, customer_id, phone_number
+FROM customers
+WHERE customer_id = 36
+--------------
+
++-----------+------------+-------------+--------------+
+| last_name | first_name | customer_id | phone_number |
++-----------+------------+-------------+--------------+
+| Ethan     | Keith      |          36 | 310-947-9828 |
++-----------+------------+-------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> notee

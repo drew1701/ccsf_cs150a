@@ -1,0 +1,234 @@
+mysql> source c:/150a/apatrick_assignment04.sql
+--------------
+/*  Assignment04.sql 
+    Andrew Patrick
+    CS 150A, Fall 2021 */
+    
+USE restaurant
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+/* Question 01 : Write CREATE TABLE for global_locations,
+   define constraints at column level */
+
+-- 01.A Execute CREATE TABLE, use single statement
+CREATE TABLE global_locations (
+    id INT PRIMARY KEY,
+    loc_name VARCHAR(20),
+    address VARCHAR(20),
+    city VARCHAR(20),
+    zip_postal_code VARCHAR(20),
+    phone VARCHAR(15),
+    email VARCHAR(15) UNIQUE,
+    manager_id INT,
+    emergency_contact VARCHAR(20)
+) ENGINE = INNODB
+--------------
+
+Query OK, 0 rows affected (0.58 sec)
+
+--------------
+    
+-- 01.B Execute DESCRIBE
+DESCRIBE global_locations
+--------------
+
++-------------------+-------------+------+-----+---------+-------+
+| Field             | Type        | Null | Key | Default | Extra |
++-------------------+-------------+------+-----+---------+-------+
+| id                | int         | NO   | PRI | NULL    |       |
+| loc_name          | varchar(20) | YES  |     | NULL    |       |
+| address           | varchar(20) | YES  |     | NULL    |       |
+| city              | varchar(20) | YES  |     | NULL    |       |
+| zip_postal_code   | varchar(20) | YES  |     | NULL    |       |
+| phone             | varchar(15) | YES  |     | NULL    |       |
+| email             | varchar(15) | YES  | UNI | NULL    |       |
+| manager_id        | int         | YES  |     | NULL    |       |
+| emergency_contact | varchar(20) | YES  |     | NULL    |       |
++-------------------+-------------+------+-----+---------+-------+
+9 rows in set (0.02 sec)
+
+--------------
+/* Question 02 : RE-Write CREATE TABLE for global_locations,
+   define UNIQUE at table level. Do Not Execute */
+
+/* Do Not Execute this statement   
+CREATE TABLE global_locations (
+    id INT PRIMARY KEY,
+    loc_name VARCHAR(20),
+    address VARCHAR(20),
+    city VARCHAR(20),
+    zip_postal_code VARCHAR(20),
+    phone VARCHAR(15),
+    email VARCHAR(15),
+    manager_id INT,
+    emergency_contact VARCHAR(20),
+    CONSTRAINT email_uk UNIQUE (email)
+) ENGINE = INNODB;
+*/
+
+
+/* Question 03 : Alter global_locations to add date_opened column */
+
+ALTER TABLE global_locations
+ADD date_opened DATE
+--------------
+
+Query OK, 0 rows affected (0.66 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+/* Question 04 : Show column names & data types for global_locations */
+
+DESCRIBE global_locations
+--------------
+
++-------------------+-------------+------+-----+---------+-------+
+| Field             | Type        | Null | Key | Default | Extra |
++-------------------+-------------+------+-----+---------+-------+
+| id                | int         | NO   | PRI | NULL    |       |
+| loc_name          | varchar(20) | YES  |     | NULL    |       |
+| address           | varchar(20) | YES  |     | NULL    |       |
+| city              | varchar(20) | YES  |     | NULL    |       |
+| zip_postal_code   | varchar(20) | YES  |     | NULL    |       |
+| phone             | varchar(15) | YES  |     | NULL    |       |
+| email             | varchar(15) | YES  | UNI | NULL    |       |
+| manager_id        | int         | YES  |     | NULL    |       |
+| emergency_contact | varchar(20) | YES  |     | NULL    |       |
+| date_opened       | date        | YES  |     | NULL    |       |
++-------------------+-------------+------+-----+---------+-------+
+10 rows in set (0.04 sec)
+
+--------------
+/* Question 05 : Delete date_opened column from global_locations */
+
+ALTER TABLE global_locations
+DROP date_opened
+--------------
+
+Query OK, 0 rows affected (1.53 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+/* Question 06 : Rename the global_locations table as 
+   global_locations_backup */
+   
+RENAME TABLE global_locations TO global_locations_backup
+--------------
+
+Query OK, 0 rows affected (0.70 sec)
+
+--------------
+/* Question 07 : Write syntax to create animals table using 
+   the supplied column information */
+   
+CREATE TABLE animals (
+    animal_id INT,
+    name VARCHAR(25),
+    license_tag_number INT,
+    admit_date DATE NOT NULL,
+    adoption_id INT,
+    vaccination_date DATE NOT NULL,
+    CONSTRAINT animals_pk PRIMARY KEY (animal_id),
+    CONSTRAINT license_tag_number_uk UNIQUE (license_tag_number)
+) ENGINE = INNODB
+--------------
+
+Query OK, 0 rows affected (0.58 sec)
+
+--------------
+/* Question 08 : Enter one row into the table.
+   Execute a SELECT * to verify input. */
+   
+-- 08.A Enter one row
+INSERT INTO animals(animal_id, name, license_tag_number, admit_date, adoption_id, vaccination_date)
+VALUES (101, 'Spot', 35540, '2004-10-10', 205, '2004-10-12')
+--------------
+
+Query OK, 1 row affected (0.07 sec)
+
+--------------
+-- 08.B Execute SELECT * to verify input
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT * FROM animals
+--------------
+
++-----------+------+--------------------+------------+-------------+------------------+
+| animal_id | name | license_tag_number | admit_date | adoption_id | vaccination_date |
++-----------+------+--------------------+------------+-------------+------------------+
+|       101 | Spot |              35540 | 2004-10-10 |         205 | 2004-10-12       |
++-----------+------+--------------------+------------+-------------+------------------+
+1 row in set (0.09 sec)
+
+--------------
+/* Question 09 : Display names of the tables in your database. */
+
+SHOW TABLES
+--------------
+
++-------------------------+
+| Tables_in_restaurant    |
++-------------------------+
+| animals                 |
+| categories              |
+| customers               |
+| departments             |
+| food_items              |
+| global_locations_backup |
+| jobs                    |
+| order_lines             |
+| orders                  |
+| promotional_menus       |
+| regular_menus           |
+| shift_assignments       |
+| shifts                  |
+| staff                   |
++-------------------------+
+14 rows in set (0.40 sec)
+
+--------------
+/* Question 10 : Remove the global_locations_backup table.
+   Display names of the tables in your database. */
+   
+-- 10.A Remove _backup table 
+DROP TABLE IF EXISTS global_locations_backup
+--------------
+
+Query OK, 0 rows affected (2.62 sec)
+
+--------------
+-- 10.B Display names of tables in your database
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SHOW TABLES
+--------------
+
++----------------------+
+| Tables_in_restaurant |
++----------------------+
+| animals              |
+| categories           |
+| customers            |
+| departments          |
+| food_items           |
+| jobs                 |
+| order_lines          |
+| orders               |
+| promotional_menus    |
+| regular_menus        |
+| shift_assignments    |
+| shifts               |
+| staff                |
++----------------------+
+13 rows in set (0.00 sec)
+
+mysql> notee

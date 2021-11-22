@@ -1,0 +1,411 @@
+mysql> \. c:/150a/apatrick_assignment09.sql
+--------------
+/*  Assignment09.sql 
+    Andrew Patrick
+    CS 150A, Fall 2021 */
+    
+USE restaurant
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+/* Question 01 : What are the names of the International Foods
+Restaurant employees whose salaries are greater than that of employees
+whose ID is 125? Use a subquery. */
+
+SELECT last_name, first_name, salary
+FROM staff
+WHERE salary >
+    (SELECT salary
+     FROM staff
+     WHERE staff_id = 125)
+ORDER BY last_name
+--------------
+
++-----------+------------+---------+
+| last_name | first_name | salary  |
++-----------+------------+---------+
+| Andy      | Marco      | 7789.00 |
+| Ayaan     | Reed       | 5230.00 |
+| Calvin    | Mark       | 6479.00 |
+| Collin    | Baylor     | 6136.00 |
+| Colson    | Jere       | 5804.00 |
+| Cooper    | Maxwell    | 6267.00 |
+| Diego     | Ivan       | 6578.00 |
+| Emanuel   | Erik       | 6593.00 |
+| Justin    | Layla      | 5168.00 |
+| Lane      | Omar       | 3767.00 |
+| Luka      | Arthur     | 4266.00 |
+| Manuel    | Jake       | 4400.00 |
+| Milan     | Frank      | 9090.00 |
+| Nolan     | Jayden     | 9646.00 |
+| Phillip   | Sarah      | 3437.00 |
+| Rafael    | Rayna      | 7061.00 |
+| Raymond   | Derek      | 9808.00 |
+| Ricardo   | Rylan      | 6604.00 |
+| Spurman   | Maya       | 7537.00 |
+| Steven    | Peter      | 3108.00 |
+| Yusuf     | Taylor     | 3582.00 |
+| Zayden    | Alex       | 9661.00 |
+| Zayn      | Louis      | 7615.00 |
++-----------+------------+---------+
+23 rows in set (0.00 sec)
+
+--------------
+/* Question 02 : What are the names of the International Foods
+Restaurant employees whose staff job ID is not the same as
+Nicolas Patrick? Use a subquery. */
+
+SELECT first_name, last_name, job_id
+FROM staff
+WHERE job_id <>
+    (SELECT job_id
+     FROM staff
+     WHERE first_name = 'Nicolas' AND last_name = 'Patrick')
+ORDER BY first_name
+--------------
+
++------------+-----------+-----------+
+| first_name | last_name | job_id    |
++------------+-----------+-----------+
+| Arthur     | Luka      | S_KIT     |
+| Baylor     | Collin    | S_SER     |
+| Colton     | Landon    | S_MAN     |
+| Derek      | Raymond   | S_DEL     |
+| Emilia     | Nasir     | S_SER     |
+| Erik       | Emanuel   | S_CASH    |
+| Frank      | Milan     | S_SER     |
+| Ivan       | Diego     | S_COOK    |
+| Jake       | Manuel    | S_PROG    |
+| Jayden     | Nolan     | S_MGR     |
+| Jere       | Colson    | S_CASH    |
+| Layla      | Justin    | S_COOK    |
+| Louis      | Zayn      | S_DEL     |
+| Marco      | Andy      | S_SER     |
+| Marcus     | Jeremy    | S_COOK    |
+| Mark       | Calvin    | S_KIT     |
+| Marvin     | Edison    | S_SER     |
+| Maxwell    | Cooper    | S_KMAN    |
+| Maya       | Spurman   | S_PROG    |
+| Nora       | Marcos    | S_ACCOUNT |
+| Omar       | Lane      | S_DEL     |
+| Peter      | Steven    | S_COOK    |
+| Rayna      | Rafael    | S_DEL     |
+| Reed       | Ayaan     | S_SER     |
+| Rylan      | Ricardo   | S_SER     |
+| Sarah      | Phillip   | S_ACCOUNT |
+| Taylor     | Yusuf     | S_ACCOUNT |
++------------+-----------+-----------+
+27 rows in set (0.00 sec)
+
+--------------
+/* Question 03 : Which employees have the same department ID as the
+IT department? Use a subquery. */
+
+SELECT first_name, last_name
+FROM staff
+WHERE dept_id =
+    (SELECT department_id
+     FROM departments
+     WHERE department_name = 'IT')
+ORDER BY first_name
+--------------
+
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| Jake       | Manuel    |
+| Maya       | Spurman   |
++------------+-----------+
+2 rows in set (0.00 sec)
+
+--------------
+/* Question 04 : Write a query that returns all employees whose salary
+is greater than that of Lane (last_name) and are in the same department
+as Zayn (last_name). Use a subquery. */
+
+SELECT staff_id, first_name, last_name, email
+FROM staff
+WHERE salary >
+    (SELECT salary
+     FROM staff
+     WHERE last_name = 'Lane')
+AND dept_id =
+    (SELECT dept_id
+     FROM staff
+     WHERE last_name = 'Zayn')
+ORDER BY first_name
+--------------
+
++----------+------------+-----------+----------------------------+
+| staff_id | first_name | last_name | email                      |
++----------+------------+-----------+----------------------------+
+|      745 | Derek      | Raymond   | srickardssons@facebook.com |
+|     1582 | Louis      | Zayn      | mabeaur@blogger.com        |
+|      939 | Rayna      | Rafael    | riwanicki9@wisc.edu        |
++----------+------------+-----------+----------------------------+
+3 rows in set (0.00 sec)
+
+--------------
+/* Question 05 : Write a query that returns all employees who have
+the same job ID as Emilia Nasir and were hired after Baylor Collin.
+Use a subquery. */
+
+SELECT staff_id, first_name, last_name, salary, dept_id
+FROM staff
+WHERE job_id =
+    (SELECT job_id
+     FROM staff
+     WHERE first_name = 'Emilia' AND last_name = 'Nasir')
+AND hire_date >
+    (SELECT hire_date
+     FROM staff
+     WHERE first_name = 'Baylor' AND last_name = 'Collin')
+ORDER BY first_name
+--------------
+
++----------+------------+-----------+---------+---------+
+| staff_id | first_name | last_name | salary  | dept_id |
++----------+------------+-----------+---------+---------+
+|     1321 | Frank      | Milan     | 9090.00 |      50 |
++----------+------------+-----------+---------+---------+
+1 row in set (0.00 sec)
+
+--------------
+/* Question 06 : What is the job ID for International Foods Restaurant
+jobs that have a salary greater than those of any S_Cook job ID?
+Use a subquery. */
+
+SELECT DISTINCT job_id, dept_id
+FROM staff
+WHERE salary > ALL
+    (SELECT salary
+     FROM staff
+     WHERE job_id = 'S_Cook')
+ORDER BY dept_id
+--------------
+
++--------+---------+
+| job_id | dept_id |
++--------+---------+
+| S_MGR  |      10 |
+| L_COOK |      20 |
+| S_DEL  |      30 |
+| S_PROG |      40 |
+| S_CASH |      50 |
+| S_SER  |      50 |
++--------+---------+
+6 rows in set (0.00 sec)
+
+--------------
+/* Question 07 : Write a query that returns a list of department IDs
+and average salaries where the department’s average salary is greater
+than Marcus Jeremy’s salary. Use a subquery. */
+
+SELECT dept_id, ROUND(AVG(salary), 2) AS Average
+FROM staff
+GROUP BY dept_id
+HAVING AVG(salary) >
+    (SELECT salary
+     FROM staff
+     WHERE first_name = 'Baylor' AND last_name = 'Collin')
+ORDER BY dept_id
+--------------
+
++---------+---------+
+| dept_id | Average |
++---------+---------+
+|      10 | 6295.33 |
+|      30 | 7062.75 |
++---------+---------+
+2 rows in set (0.00 sec)
+
+--------------
+/* Question 08 : Write a query that returns a list of department IDs
+with employees whose minimum salary is greater than the lowest salary
+of employees whose department ID is not equal to 50. Use a subquery. */
+
+SELECT dept_id, MIN(salary) AS 'minimum salary'
+FROM staff
+GROUP BY dept_id
+HAVING MIN(salary) > ANY
+    (SELECT salary
+     FROM staff
+     WHERE dept_id <> 50)
+ORDER BY dept_id
+--------------
+
++---------+----------------+
+| dept_id | minimum salary |
++---------+----------------+
+|      10 |        2973.00 |
+|      30 |        3767.00 |
+|      40 |        4400.00 |
+|      50 |        2453.00 |
+|      60 |        1879.00 |
++---------+----------------+
+5 rows in set (0.00 sec)
+
+--------------
+/* Question 09 : Find the last names of all employees whose salaries are
+the same as the minimum salary for any department. Use a subquery. */
+
+SELECT last_name, first_name
+FROM staff 
+WHERE salary IN
+    (SELECT MIN(salary)
+     FROM staff
+     GROUP BY dept_id)
+ORDER BY last_name
+--------------
+
++-----------+------------+
+| last_name | first_name |
++-----------+------------+
+| Griffin   | Katrine    |
+| Landon    | Colton     |
+| Lane      | Omar       |
+| Manuel    | Jake       |
+| Marcos    | Nora       |
+| Nasir     | Emilia     |
++-----------+------------+
+6 rows in set (0.00 sec)
+
+--------------
+/* Question 10 : The goal of the following query is to display the
+minimum salary for each department that is less than the lowest salary
+of the employees in department 30. The subquery doesn't execute because
+it has five errors. Find and correct them. Then, run the query. */
+
+/* Original query : with errors
+SELECT dept_id, MIN(salary) As "minimum salary"
+FROM staff
+WHERE MIN(salary)
+HAVING MIN(salary) >
+GROUP BY dept_id
+SELECT MIN(salary)
+WHERE dept_id < 30; */
+
+-- Fixed query
+SELECT dept_id, MIN(salary) As "minimum salary"
+FROM staff
+GROUP BY dept_id
+HAVING MIN(salary) <
+    (SELECT MIN(salary)
+     FROM staff 
+     WHERE dept_id = 30
+     GROUP BY dept_id)
+--------------
+
++---------+----------------+
+| dept_id | minimum salary |
++---------+----------------+
+|      10 |        2973.00 |
+|      20 |        1136.00 |
+|      50 |        2453.00 |
+|      60 |        1879.00 |
++---------+----------------+
+4 rows in set (0.00 sec)
+
+--------------
+     
+     
+/* Question 11 : Write a non-pair-wise subquery that lists last_name,
+first_name, department_id, and manager_id for all employees with the
+same department_ id and manager_id as employee 745. Use a subquery. */
+
+SELECT last_name, first_name, dept_id, manager_id
+FROM staff
+WHERE dept_id =
+    (SELECT dept_id
+     FROM staff
+     WHERE staff_id = 745)
+AND manager_id =
+    (SELECT manager_id
+     FROM staff
+     WHERE staff_id = 745)
+ORDER BY last_name
+--------------
+
++-----------+------------+---------+------------+
+| last_name | first_name | dept_id | manager_id |
++-----------+------------+---------+------------+
+| Lane      | Omar       |      30 |        125 |
+| Rafael    | Rayna      |      30 |        125 |
+| Raymond   | Derek      |      30 |        125 |
+| Zayn      | Louis      |      30 |        125 |
++-----------+------------+---------+------------+
+4 rows in set (0.00 sec)
+
+--------------
+/* Question 12 : Write a SQL statement that uses the IN operator to
+find the customer ID, first name, and last name of each customer who
+made an order on 05/09/2020. Use a subquery. */
+
+SELECT customer_id, first_name, last_name
+FROM customers
+WHERE customer_id IN
+    (SELECT cust_id
+     FROM orders
+     WHERE order_date = '2020-05-09')
+ORDER BY customer_id
+--------------
+
++-------------+------------+-----------+
+| customer_id | first_name | last_name |
++-------------+------------+-----------+
+|          40 | Billy      | Marilyn   |
+|          50 | Philip     | Judy      |
++-------------+------------+-----------+
+2 rows in set (0.00 sec)
+
+--------------
+/* Question 13 : Write a SQL statement that displays the order ID and
+order date for each order created for the customer Evita Hodcroft.
+Use a subquery. */
+
+SELECT order_number, order_date
+FROM orders
+WHERE cust_id IN
+    (SELECT customer_id
+     FROM customers
+     WHERE first_name = 'Evita' AND last_name = 'Hodcroft')
+ORDER BY order_number
+--------------
+
++--------------+------------+
+| order_number | order_date |
++--------------+------------+
+|         6693 | 2020-10-03 |
+|         7383 | 2020-10-03 |
++--------------+------------+
+2 rows in set (0.00 sec)
+
+--------------
+/* Question 14 : Write a SQL statement that lists the highest earners
+for each department. Include the last name, department ID, and the
+salary for each employee. */
+
+SELECT last_name, dept_id, CONCAT('$', FORMAT(salary, 2)) AS salary
+FROM staff
+WHERE salary IN
+    (SELECT MAX(salary)
+     FROM staff
+     GROUP BY dept_id)
+ORDER BY dept_id
+--------------
+
++-----------+---------+-----------+
+| last_name | dept_id | salary    |
++-----------+---------+-----------+
+| Nolan     |      10 | $9,646.00 |
+| Zayden    |      20 | $9,661.00 |
+| Raymond   |      30 | $9,808.00 |
+| Spurman   |      40 | $7,537.00 |
+| Milan     |      50 | $9,090.00 |
+| Yusuf     |      60 | $3,582.00 |
++-----------+---------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> notee

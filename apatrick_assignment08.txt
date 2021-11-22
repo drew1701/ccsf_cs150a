@@ -1,0 +1,325 @@
+mysql> \. c:/150a/apatrick_assignment08.sql
+--------------
+/*  Assignment08.sql 
+    Andrew Patrick
+    CS 150A, Fall 2021 */
+    
+USE restaurant
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+/* Question 01 : Write a SELECT statement that finds the average salary
+   for (IFR) employees whose manager ID is 200. */
+
+SELECT AVG(salary) AS Average
+FROM staff
+WHERE manager_id = 200
+--------------
+
++-------------+
+| Average     |
++-------------+
+| 4569.250000 |
++-------------+
+1 row in set (0.00 sec)
+
+--------------
+/* Question 02 : Write a SELECT statement that finds the lowest salary,
+   the last name who is first in an alphabetical list of employees, and
+   the last name who is last of an alphabetical list of employees.
+   Select only employees who are in departments 30 or 60. */
+
+SELECT MIN(salary) AS 'Lowest Salary',
+       MIN(last_name) AS 'Alphabetically First',
+       MAX(last_name) AS 'Alphabetically Last'
+FROM staff
+WHERE dept_id IN (30, 60)
+--------------
+
++---------------+----------------------+---------------------+
+| Lowest Salary | Alphabetically First | Alphabetically Last |
++---------------+----------------------+---------------------+
+|       1879.00 | Lane                 | Zayn                |
++---------------+----------------------+---------------------+
+1 row in set (0.00 sec)
+
+--------------
+/* Question 03 : Write a SELECT statement that shows the most recent
+   hire date of any IFR employee. */
+
+SELECT MAX(hire_date) AS 'Most Recent Hire Date'
+FROM staff
+--------------
+
++-----------------------+
+| Most Recent Hire Date |
++-----------------------+
+| 2018-02-14            |
++-----------------------+
+1 row in set (0.00 sec)
+
+--------------
+/* Question 04 : Write a SQL statement that creates a list including
+   each employee's first name concatenated to a space as well as the
+   employee's last name, and the salary of all employees whose last name
+   contains the string 'ar'. */
+
+SELECT CONCAT_WS(' ', first_name, last_name) AS 'Employee Name',
+       salary AS Salary
+FROM staff
+WHERE last_name LIKE "%ar%"
+ORDER BY salary
+--------------
+
++---------------+---------+
+| Employee Name | Salary  |
++---------------+---------+
+| Nora Marcos   | 1879.00 |
+| Rylan Ricardo | 6604.00 |
++---------------+---------+
+2 rows in set (0.00 sec)
+
+--------------
+/* Question 05 : Write a SQL statement that lists the item number and
+   item description for all items. The item descriptions should appear
+   in uppercase letters. */
+
+SELECT item_number, UPPER(description) AS item_desc
+FROM food_items
+ORDER BY item_number
+--------------
+
++-------------+------------------------+
+| item_number | item_desc              |
++-------------+------------------------+
+|          80 | CHEESEBURGER           |
+|          81 | DOUBLE CHEESEBURGER    |
+|          82 | SPICY CHICKEN MCBITE   |
+|          83 | CHICKEN SANDWICH       |
+|          84 | SIDE SALA              |
+|          85 | APPLE SLICES           |
+|          86 | SROAST COFFEE          |
+|          87 | BBQ SNACK WRAP         |
+|          90 | HAMBURGER              |
+|          91 | SPICY CHICKEN SANDWICH |
+|          92 | ICED LATTE             |
+|          93 | CHICKEN MCNUGGETS      |
+|          94 | FRUIT & WALNUTS        |
+|          95 | BAKED APPLE PIE        |
+|          96 | SUGAR COOKIE           |
+|          97 | CAESAR SALAD           |
++-------------+------------------------+
+16 rows in set (0.00 sec)
+
+--------------
+/* Question 06 : IFR is running a promotion that is valid for up to 20
+   days after an order is placed. Write a SQL statement that lists the
+   order ID, customer ID, first name, and last name. The promotion date
+   is 20 days after the order was placed. */
+
+SELECT order_number, customer_id, first_name, last_name, order_date,
+       DATE_ADD(order_date, INTERVAL 20 DAY) AS promotion_date
+FROM orders
+JOIN customers ON cust_id = customer_id
+ORDER BY order_number
+--------------
+
++--------------+-------------+------------+-------------+------------+----------------+
+| order_number | customer_id | first_name | last_name   | order_date | promotion_date |
++--------------+-------------+------------+-------------+------------+----------------+
+|         5343 |          35 | Zachary    | Peter       | 2020-01-03 | 2020-01-23     |
+|         5363 |          20 | Ryan       | Jacob       | 2020-10-03 | 2020-10-23     |
+|         5393 |          45 | Willie     | Bruce       | 2020-08-03 | 2020-08-23     |
+|         5623 |           3 | Michael    | John        | 2020-04-05 | 2020-04-25     |
+|         5679 |          20 | Ryan       | Jacob       | 2020-04-03 | 2020-04-23     |
+|         5681 |          23 | Stephen    | Larry       | 2020-04-04 | 2020-04-24     |
+|         5682 |          40 | Billy      | Marilyn     | 2020-05-09 | 2020-05-29     |
+|         5683 |          50 | Philip     | Judy        | 2020-05-09 | 2020-05-29     |
+|         5690 |           6 | Christi    | Thomas      | 2020-04-21 | 2020-05-11     |
+|         5691 |          29 | Patrick    | Jack        | 2020-07-03 | 2020-07-23     |
+|         5693 |           7 | Charles    | Christopher | 2020-08-19 | 2020-09-08     |
+|         5694 |          30 | Philip     | Dennis      | 2020-07-03 | 2020-07-23     |
+|         5773 |           6 | Christi    | Thomas      | 2020-04-21 | 2020-05-11     |
+|         5783 |           3 | Michael    | John        | 2020-04-05 | 2020-04-25     |
+|         5791 |          40 | Billy      | Marilyn     | 2020-05-09 | 2020-05-29     |
+|         5792 |          50 | Philip     | Judy        | 2020-05-09 | 2020-05-29     |
+|         5793 |          45 | Willie     | Bruce       | 2020-08-03 | 2020-08-23     |
+|         5794 |          30 | Philip     | Dennis      | 2020-07-03 | 2020-07-23     |
+|         5798 |          10 | Thomas     | Rolston     | 2020-03-03 | 2020-03-23     |
+|         5799 |          20 | Ryan       | Jacob       | 2020-04-03 | 2020-04-23     |
+|         6693 |          43 | Evita      | Hodcroft    | 2020-10-03 | 2020-10-23     |
+|         7383 |          43 | Evita      | Hodcroft    | 2020-10-03 | 2020-10-23     |
+|         7693 |          20 | Ryan       | Jacob       | 2020-10-03 | 2020-10-23     |
++--------------+-------------+------------+-------------+------------+----------------+
+23 rows in set (0.00 sec)
+
+--------------
+/* Question 07 : List the last names and birthdays of IFR employees.
+   Convert the birth dates to character data. */
+
+SELECT last_name, DATE_FORMAT(birthdate, '%W %M %d %Y') AS Birthday
+FROM staff
+ORDER BY last_name
+--------------
+
++-----------+----------------------------+
+| last_name | Birthday                   |
++-----------+----------------------------+
+| Andy      | Thursday June 28 1979      |
+| Ayaan     | Wednesday March 03 1976    |
+| Calvin    | Sunday May 09 1971         |
+| Collin    | Friday July 30 1976        |
+| Colson    | Saturday June 07 1980      |
+| Cooper    | Wednesday July 02 1986     |
+| Diego     | Thursday June 19 1997      |
+| Edison    | Saturday June 07 1980      |
+| Emanuel   | Saturday November 12 1983  |
+| Griffin   | Monday February 12 1979    |
+| Jeremy    | Tuesday April 02 1985      |
+| Justin    | Wednesday October 19 1988  |
+| Landon    | Sunday December 28 1969    |
+| Lane      | Tuesday January 07 1975    |
+| Luka      | Thursday August 22 1991    |
+| Manuel    | Friday September 12 1980   |
+| Marcos    | Wednesday December 31 1986 |
+| Milan     | Friday May 09 1980         |
+| Nasir     | Sunday November 21 1976    |
+| Nolan     | Tuesday January 17 1989    |
+| Patrick   | Saturday April 11 1981     |
+| Phillip   | Thursday July 14 1988      |
+| Rafael    | Saturday May 03 1986       |
+| Raymond   | Wednesday August 31 1983   |
+| Ricardo   | Tuesday May 30 1978        |
+| Spurman   | Thursday July 01 1982      |
+| Steven    | Wednesday July 12 1978     |
+| Yusuf     | Wednesday April 19 1989    |
+| Zayden    | Thursday April 06 1972     |
+| Zayn      | Monday April 25 1994       |
++-----------+----------------------------+
+30 rows in set (0.00 sec)
+
+--------------
+/* Question 08 : Layla Justin is an employee who has received a $2,000
+   raise. Display their first name, last name, current salary, and new
+   salary. Display both salaries with a $ and two decimal places. Label
+   the new salary column AS New Salary. */
+
+SELECT first_name, last_name,
+       CONCAT('$', FORMAT(salary, 2)) AS 'Current Salary',
+       CONCAT('$', FORMAT(salary + 2000, 2)) AS 'New Salary'       
+FROM staff
+WHERE first_name = 'Layla' AND last_name = 'Justin'
+--------------
+
++------------+-----------+----------------+------------+
+| first_name | last_name | Current Salary | New Salary |
++------------+-----------+----------------+------------+
+| Layla      | Justin    | $5,168.00      | $7,168.00  |
++------------+-----------+----------------+------------+
+1 row in set (0.00 sec)
+
+--------------
+/* Question 09 : Create a report listing the first and last names and
+   numeric month of hire for all employees in the staff table. */
+
+SELECT CONCAT_WS(' ', first_name, last_name) AS Name,
+       MONTH(hire_date) AS 'Anniversary Month'
+FROM staff
+ORDER BY MONTH(hire_date), first_name
+--------------
+
++-----------------+-------------------+
+| Name            | Anniversary Month |
++-----------------+-------------------+
+| Colton Landon   |                 2 |
+| Frank Milan     |                 2 |
+| Jake Manuel     |                 2 |
+| Jayden Nolan    |                 2 |
+| Katrine Griffin |                 2 |
+| Layla Justin    |                 2 |
+| Louis Zayn      |                 2 |
+| Marco Andy      |                 2 |
+| Nora Marcos     |                 2 |
+| Peter Steven    |                 2 |
+| Erik Emanuel    |                 3 |
+| Maxwell Cooper  |                 3 |
+| Maya Spurman    |                 3 |
+| Rylan Ricardo   |                 3 |
+| Taylor Yusuf    |                 3 |
+| Emilia Nasir    |                 4 |
+| Arthur Luka     |                 5 |
+| Baylor Collin   |                 6 |
+| Omar Lane       |                 6 |
+| Sarah Phillip   |                 6 |
+| Ivan Diego      |                 7 |
+| Marvin Edison   |                 7 |
+| Derek Raymond   |                 8 |
+| Jere Colson     |                 8 |
+| Mark Calvin     |                 8 |
+| Rayna Rafael    |                 8 |
+| Reed Ayaan      |                 8 |
+| Alex Zayden     |                 9 |
+| Nicolas Patrick |                10 |
+| Marcus Jeremy   |                12 |
++-----------------+-------------------+
+30 rows in set (0.00 sec)
+
+--------------
+/* Question 10 : Write a SELECT statement that displays the item number
+   and the number of orders placed for each item. Show the results in
+   decreasing order and label result column NumOrder. */
+
+SELECT item_number, SUM(quantity) AS NumOrders
+FROM order_lines  
+GROUP BY item_number
+ORDER BY NumOrders DESC, item_number DESC
+--------------
+
++-------------+-----------+
+| item_number | NumOrders |
++-------------+-----------+
+|          80 |        13 |
+|          90 |        11 |
+|          95 |         9 |
+|          83 |         7 |
+|          85 |         5 |
+|          93 |         4 |
+|          82 |         4 |
+|          92 |         3 |
+|          87 |         3 |
+|          97 |         2 |
+|          96 |         2 |
+|          91 |         2 |
+|          86 |         2 |
+|          81 |         2 |
++-------------+-----------+
+14 rows in set (0.00 sec)
+
+--------------
+/* Question 11 : Write a SQL statement that creates a list of monthly
+   salaries from the staff table where the salary is between $700 and
+   $3,000. The salaries should be formatted to include a $-sign and
+   have two decimal points like: $9999.99. */
+
+SELECT staff_id, CONCAT('$', salary) AS 'monthly salary'
+FROM staff
+WHERE salary BETWEEN 700 AND 3000
+ORDER BY staff_id
+--------------
+
++----------+----------------+
+| staff_id | monthly salary |
++----------+----------------+
+|      125 | $2973.00       |
+|      209 | $1136.00       |
+|      246 | $2128.00       |
+|      524 | $2453.00       |
+|     1292 | $1879.00       |
+|     1544 | $2459.00       |
+|     1611 | $1160.00       |
++----------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> notee

@@ -1,0 +1,315 @@
+mysql> \. c:/150a/apatrick_assignment10.sql
+--------------
+/*  Assignment10.sql 
+    Andrew Patrick
+    CS 150A, Fall 2021 */
+    
+USE restaurant
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+/* Question 01 : Construct an inline view that lists the last name,
+salary, department ID, and maximum salary for each department. */
+
+SELECT s.last_name 'Last Name',
+    CONCAT('$', FORMAT(s.salary, 0)) 'Salary',
+    s.dept_id 'Dept ID',
+    CONCAT('$', FORMAT(d.maxsalary, 0)) 'Dept Max Salary'
+FROM staff s,
+    (SELECT dept_id, MAX(salary) maxsalary
+     FROM staff
+     GROUP BY dept_id) d 
+WHERE s.dept_id = d.dept_id
+ORDER BY last_name
+--------------
+
++-----------+--------+---------+-----------------+
+| Last Name | Salary | Dept ID | Dept Max Salary |
++-----------+--------+---------+-----------------+
+| Andy      | $7,789 |      50 | $9,090          |
+| Ayaan     | $5,230 |      50 | $9,090          |
+| Calvin    | $6,479 |      20 | $9,661          |
+| Collin    | $6,136 |      50 | $9,090          |
+| Colson    | $5,804 |      50 | $9,090          |
+| Cooper    | $6,267 |      10 | $9,646          |
+| Diego     | $6,578 |      20 | $9,661          |
+| Edison    | $2,459 |      50 | $9,090          |
+| Emanuel   | $6,593 |      50 | $9,090          |
+| Griffin   | $1,136 |      20 | $9,661          |
+| Jeremy    | $1,160 |      20 | $9,661          |
+| Justin    | $5,168 |      20 | $9,661          |
+| Landon    | $2,973 |      10 | $9,646          |
+| Lane      | $3,767 |      30 | $9,808          |
+| Luka      | $4,266 |      20 | $9,661          |
+| Manuel    | $4,400 |      40 | $7,537          |
+| Marcos    | $1,879 |      60 | $3,582          |
+| Milan     | $9,090 |      50 | $9,090          |
+| Nasir     | $2,453 |      50 | $9,090          |
+| Nolan     | $9,646 |      10 | $9,646          |
+| Patrick   | $2,128 |      20 | $9,661          |
+| Phillip   | $3,437 |      60 | $3,582          |
+| Rafael    | $7,061 |      30 | $9,808          |
+| Raymond   | $9,808 |      30 | $9,808          |
+| Ricardo   | $6,604 |      50 | $9,090          |
+| Spurman   | $7,537 |      40 | $7,537          |
+| Steven    | $3,108 |      20 | $9,661          |
+| Yusuf     | $3,582 |      60 | $3,582          |
+| Zayden    | $9,661 |      20 | $9,661          |
+| Zayn      | $7,615 |      30 | $9,808          |
++-----------+--------+---------+-----------------+
+30 rows in set (0.00 sec)
+
+--------------
+/* Question 02 : Create a new table called my_departments and add all
+columns & all rows to it using a subquery from the departments table. */
+
+-- 02.A Create empty copy of departments table, drop if exists
+DROP TABLE IF EXISTS my_departments
+--------------
+
+Query OK, 0 rows affected (0.52 sec)
+
+--------------
+CREATE TABLE my_departments(
+    department_id DECIMAL(4,0),
+    department_name VARCHAR(30) NOT NULL,
+    manager_id DECIMAL(6,0)
+)
+--------------
+
+Query OK, 0 rows affected (0.91 sec)
+
+--------------
+-- 02.B Add all columns/rows using subquery in Insert
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+INSERT INTO my_departments
+SELECT *
+FROM departments
+--------------
+
+Query OK, 6 rows affected (0.14 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+--------------
+-- 02.C Do a SELECT statement to confirm column/row data
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT * FROM my_departments
+--------------
+
++---------------+-----------------+------------+
+| department_id | department_name | manager_id |
++---------------+-----------------+------------+
+|            10 | Administration  |        200 |
+|            20 | Kitchen Staff   |        201 |
+|            30 | Delivery Staff  |        124 |
+|            40 | IT              |        103 |
+|            50 | Floor Staff     |        100 |
+|            60 | Accounting      |        205 |
++---------------+-----------------+------------+
+6 rows in set (0.00 sec)
+
+--------------
+-- 02.D Enable department_id as primary key
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+ALTER TABLE my_departments
+ADD PRIMARY KEY (department_id)
+--------------
+
+Query OK, 0 rows affected (1.18 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+/* Question 03 : Create a view called view_my_departments that
+includes: department_id and department_name. */
+
+-- 03.A Create view of my_departments
+CREATE OR REPLACE VIEW view_my_departments AS
+SELECT department_id, department_name
+FROM my_departments
+--------------
+
+Query OK, 0 rows affected (0.09 sec)
+
+--------------
+    
+-- 03.B Add supplied data to my_departments using view_my_departments
+INSERT INTO view_my_departments
+VALUES
+    (105, 'Advertising'),
+    (120, 'Custodial'),
+    (130, 'Planning')
+--------------
+
+Query OK, 3 rows affected (0.08 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+--------------
+    
+
+/* Question 04 : Add the Human Resources dept, department_id 220
+to my_departments using view_my_departments. */
+
+-- 04.A Add HR Dept
+INSERT INTO view_my_departments
+VALUES (220, 'Human Resources')
+--------------
+
+Query OK, 1 row affected (0.09 sec)
+
+--------------
+-- 04.B Verify new additions using view_my_departments
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT * FROM view_my_departments
+--------------
+
++---------------+-----------------+
+| department_id | department_name |
++---------------+-----------------+
+|            10 | Administration  |
+|            20 | Kitchen Staff   |
+|            30 | Delivery Staff  |
+|            40 | IT              |
+|            50 | Floor Staff     |
+|            60 | Accounting      |
+|           105 | Advertising     |
+|           120 | Custodial       |
+|           130 | Planning        |
+|           220 | Human Resources |
++---------------+-----------------+
+10 rows in set (0.00 sec)
+
+--------------
+/* Question 05 : Create a view named item_ordered. It consists of the
+food item number, item description, price, order number, order date,
+quantity, and price for all ordered food items currently on file.
+Write and execute the command to create the item_ordered view. */
+
+CREATE OR REPLACE VIEW item_ordered AS
+SELECT ol.item_number, fi.description, fi.price price_each,
+       ol.order_number, o.order_date, ol.quantity,
+       fi.price * ol.quantity quoted_price
+FROM order_lines ol  
+    JOIN food_items fi 
+        ON ol.item_number = fi.item_number
+    JOIN orders o
+        ON ol.order_number = o.order_number
+--------------
+
+Query OK, 0 rows affected (0.08 sec)
+
+--------------
+/* Question 06 : Write/ execute the command to retrieve the item_number,
+description, order number, and quoted price for all orders in the
+item_ordered view for food items with prices that exceed $5. */
+
+SELECT item_number, description, order_number, quoted_price
+FROM item_ordered
+WHERE price_each > 5
+ORDER BY item_number, order_number
+--------------
+
++-------------+----------------------+--------------+--------------+
+| item_number | description          | order_number | quoted_price |
++-------------+----------------------+--------------+--------------+
+|          80 | Cheeseburger         |         5343 |        16.18 |
+|          80 | Cheeseburger         |         5773 |        16.18 |
+|          80 | Cheeseburger         |         5783 |        16.18 |
+|          80 | Cheeseburger         |         5792 |         8.09 |
+|          80 | Cheeseburger         |         5794 |        16.18 |
+|          80 | Cheeseburger         |         5798 |        16.18 |
+|          80 | Cheeseburger         |         7383 |        16.18 |
+|          81 | Double Cheeseburger  |         5793 |        27.18 |
+|          82 | Spicy Chicken McBite |         5791 |        20.18 |
+|          82 | Spicy Chicken McBite |         5793 |        10.09 |
+|          82 | Spicy Chicken McBite |         5799 |        10.09 |
+|          83 | Chicken Sandwich     |         5363 |         9.59 |
+|          83 | Chicken Sandwich     |         5791 |        28.77 |
+|          83 | Chicken Sandwich     |         5793 |        19.18 |
+|          83 | Chicken Sandwich     |         7383 |         9.59 |
+|          86 | SRoast Coffee        |         5791 |        11.50 |
++-------------+----------------------+--------------+--------------+
+16 rows in set (0.18 sec)
+
+--------------
+/* Question 07 : Create a view named salary_view that returns the
+highest salary, lowest salary, average salary, and department name. */
+
+CREATE OR REPLACE VIEW salary_view AS
+SELECT MAX(salary) highest_salary,
+       MIN(salary) lowest_salary,
+       ROUND(AVG(salary), 2) average_salary,
+       (SELECT department_name
+        FROM departments
+        WHERE dept_id = department_id) department_name
+FROM staff
+WHERE dept_id IS NOT NULL
+GROUP BY dept_id
+--------------
+
+Query OK, 0 rows affected (0.27 sec)
+
+--------------
+/* Question 08 : Create a view named dept_managers_view that returns a
+listing of department names along with the manager initial and surname
+for that department. Test the view by returning all the rows from it.
+Make sure no rows can be updated through the view. */
+
+-- 08.A Create view dept_managers_view
+CREATE OR REPLACE VIEW dept_managers_view AS
+SELECT 
+    (SELECT department_name
+     FROM departments
+     WHERE dept_id = department_id) department_name,
+    (SELECT LEFT(first_name, 1)
+     FROM staff
+     WHERE s.manager_id = staff_id) mgr_intial,
+    (SELECT last_name
+     FROM staff
+     WHERE s.manager_id = staff_id) mgr_surname
+FROM staff s
+GROUP BY dept_id
+--------------
+
+Query OK, 0 rows affected (0.11 sec)
+
+--------------
+-- 08.B Test view by returning all the rows
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT * FROM dept_managers_view
+--------------
+
++-----------------+------------+-------------+
+| department_name | mgr_intial | mgr_surname |
++-----------------+------------+-------------+
+| Administration  | J          | Nolan       |
+| Kitchen Staff   | M          | Calvin      |
+| Delivery Staff  | C          | Landon      |
+| IT              | J          | Nolan       |
+| Floor Staff     | C          | Landon      |
+| Accounting      | J          | Nolan       |
++-----------------+------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> notee

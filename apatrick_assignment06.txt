@@ -1,0 +1,275 @@
+mysql> \. c:/150a/apatrick_assignment06.sql
+--------------
+/*  Assignment06.sql 
+    Andrew Patrick
+    CS 150A, Fall 2021 */
+    
+USE restaurant
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+/* Question 01 : Run Describe on orders. Add default of today's 
+   date to order_date. Run Describe on orders to verify. */
+
+DESCRIBE orders
+--------------
+
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| order_number | decimal(5,0) | NO   | PRI | NULL    |       |
+| order_date   | date         | NO   |     | NULL    |       |
+| cust_id      | decimal(5,0) | NO   | MUL | NULL    |       |
+| staff_id     | decimal(5,0) | NO   | MUL | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+4 rows in set (0.04 sec)
+
+--------------
+ALTER TABLE orders
+    MODIFY order_date DATE NOT NULL
+    DEFAULT (CURRENT_DATE())
+--------------
+
+Query OK, 0 rows affected (0.60 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+        
+DESCRIBE orders
+--------------
+
++--------------+--------------+------+-----+-----------+-------------------+
+| Field        | Type         | Null | Key | Default   | Extra             |
++--------------+--------------+------+-----+-----------+-------------------+
+| order_number | decimal(5,0) | NO   | PRI | NULL      |                   |
+| order_date   | date         | NO   |     | curdate() | DEFAULT_GENERATED |
+| cust_id      | decimal(5,0) | NO   | MUL | NULL      |                   |
+| staff_id     | decimal(5,0) | NO   | MUL | NULL      |                   |
++--------------+--------------+------+-----+-----------+-------------------+
+4 rows in set (0.00 sec)
+
+--------------
+/* Question 02 : Run Describe on customers. Add customers_phone with 
+   NULL allowed and 11 digits. Run Describe on customers to verify. */
+   
+DESCRIBE customers
+--------------
+
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| customer_id  | decimal(5,0)  | NO   | PRI | NULL    |       |
+| first_name   | varchar(25)   | NO   |     | NULL    |       |
+| last_name    | varchar(35)   | NO   |     | NULL    |       |
+| address      | varchar(50)   | NO   |     | NULL    |       |
+| city         | varchar(30)   | NO   |     | NULL    |       |
+| state        | varchar(20)   | NO   |     | NULL    |       |
+| zip          | decimal(10,0) | NO   |     | NULL    |       |
+| phone_number | varchar(25)   | NO   |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+--------------
+ALTER TABLE customers
+    ADD customers_phone VARCHAR(11)
+--------------
+
+Query OK, 0 rows affected (0.69 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+DESCRIBE customers
+--------------
+
++-----------------+---------------+------+-----+---------+-------+
+| Field           | Type          | Null | Key | Default | Extra |
++-----------------+---------------+------+-----+---------+-------+
+| customer_id     | decimal(5,0)  | NO   | PRI | NULL    |       |
+| first_name      | varchar(25)   | NO   |     | NULL    |       |
+| last_name       | varchar(35)   | NO   |     | NULL    |       |
+| address         | varchar(50)   | NO   |     | NULL    |       |
+| city            | varchar(30)   | NO   |     | NULL    |       |
+| state           | varchar(20)   | NO   |     | NULL    |       |
+| zip             | decimal(10,0) | NO   |     | NULL    |       |
+| phone_number    | varchar(25)   | NO   |     | NULL    |       |
+| customers_phone | varchar(11)   | YES  |     | NULL    |       |
++-----------------+---------------+------+-----+---------+-------+
+9 rows in set (0.01 sec)
+
+--------------
+/* Question 03 : Run Describe on customers. Drop customers_phone.
+   Run Describe on customers to verify. */
+   
+DESCRIBE customers
+--------------
+
++-----------------+---------------+------+-----+---------+-------+
+| Field           | Type          | Null | Key | Default | Extra |
++-----------------+---------------+------+-----+---------+-------+
+| customer_id     | decimal(5,0)  | NO   | PRI | NULL    |       |
+| first_name      | varchar(25)   | NO   |     | NULL    |       |
+| last_name       | varchar(35)   | NO   |     | NULL    |       |
+| address         | varchar(50)   | NO   |     | NULL    |       |
+| city            | varchar(30)   | NO   |     | NULL    |       |
+| state           | varchar(20)   | NO   |     | NULL    |       |
+| zip             | decimal(10,0) | NO   |     | NULL    |       |
+| phone_number    | varchar(25)   | NO   |     | NULL    |       |
+| customers_phone | varchar(11)   | YES  |     | NULL    |       |
++-----------------+---------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+--------------
+ALTER TABLE customers
+    DROP customers_phone
+--------------
+
+Query OK, 0 rows affected (1.63 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+DESCRIBE customers
+--------------
+
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| customer_id  | decimal(5,0)  | NO   | PRI | NULL    |       |
+| first_name   | varchar(25)   | NO   |     | NULL    |       |
+| last_name    | varchar(35)   | NO   |     | NULL    |       |
+| address      | varchar(50)   | NO   |     | NULL    |       |
+| city         | varchar(30)   | NO   |     | NULL    |       |
+| state        | varchar(20)   | NO   |     | NULL    |       |
+| zip          | decimal(10,0) | NO   |     | NULL    |       |
+| phone_number | varchar(25)   | NO   |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+--------------
+/* Question 04 : Write the INSERT to add the specified row into 
+   the customers table. */
+   
+INSERT INTO customers
+    VALUES (60, 'brian', 'rogers', '820 Bounty Drive', 'Palo Alto',
+            'CA', 94342, '01654564898''')
+--------------
+
+Query OK, 1 row affected (0.18 sec)
+
+--------------
+            
+            
+/* Question 05 : Create 3 o_ tables using specified syntax. */
+
+-- drop tables if exist  
+DROP TABLE IF EXISTS o_departments
+--------------
+
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+--------------
+DROP TABLE IF EXISTS o_staff
+--------------
+
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+--------------
+DROP TABLE IF EXISTS o_jobs
+--------------
+
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+--------------
+-- create tables with specified syntax
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+CREATE TABLE o_jobs AS
+    (SELECT * FROM jobs)
+--------------
+
+Query OK, 13 rows affected (0.89 sec)
+Records: 13  Duplicates: 0  Warnings: 0
+
+--------------
+    
+CREATE TABLE o_staff AS
+    (SELECT staff_id, first_name, last_name, email, hire_date, job_id
+     FROM staff)
+--------------
+
+Query OK, 30 rows affected (0.89 sec)
+Records: 30  Duplicates: 0  Warnings: 0
+
+--------------
+     
+CREATE TABLE o_departments AS
+    (SELECT * FROM departments)
+--------------
+
+Query OK, 6 rows affected (0.81 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+--------------
+    
+    
+/* Question 06 : Write the INSERT to add the Human Resources
+   job to the o_jobs table. */
+   
+INSERT INTO o_jobs
+    VALUES ('HR_MAN', 'Human Resources Manager', 4500, 5500)
+--------------
+
+Query OK, 1 row affected (0.15 sec)
+
+--------------
+    
+    
+/* Question 07 : Rename o_jobs to o_job_description. */
+
+RENAME TABLE o_jobs TO o_job_description
+--------------
+
+Query OK, 0 rows affected (0.38 sec)
+
+--------------
+/* Question 08 : Create a copy of the staff table and call it
+   your_initials_emp, then add a column. */
+   
+DROP TABLE IF EXISTS amp_emp
+--------------
+
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+--------------
+CREATE TABLE amp_emp AS
+    (SELECT * FROM staff)
+--------------
+
+Query OK, 30 rows affected (0.78 sec)
+Records: 30  Duplicates: 0  Warnings: 0
+
+--------------
+    
+-- Add department_name column, match data type to departments table
+ALTER TABLE amp_emp
+    ADD department_name VARCHAR(30)
+--------------
+
+Query OK, 0 rows affected (0.29 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+    
+    
+/* Question 09 : Drop the o_staff table. */
+
+DROP TABLE IF EXISTS o_staff
+--------------
+
+Query OK, 0 rows affected (0.56 sec)
+
+mysql> notee

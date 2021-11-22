@@ -1,0 +1,112 @@
+mysql> source c:/users/drew/google drive/active/cs150a/my_scripts/apatrick_assignment1.sql
+--------------
+/*  Assignment1.sql 
+    Andrew Patrick
+    CS 150A, Fall 2021 */
+ 
+CREATE DATABASE IF NOT EXISTS university
+--------------
+
+Query OK, 1 row affected, 1 warning (0.02 sec)
+
+Database changed
+--------------
+/* drop the table */
+
+DROP TABLE IF EXISTS  student
+--------------
+
+Query OK, 0 rows affected (0.50 sec)
+
+--------------
+/* Query 1 */
+
+CREATE TABLE student(
+    student_id INT,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    reg_year DATE NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    CONSTRAINT student_pk PRIMARY KEY (student_id),
+    CONSTRAINT student_email_uk UNIQUE (email)
+
+)
+--------------
+
+Query OK, 0 rows affected (0.89 sec)
+
+--------------
+/* Query 2 */
+
+INSERT INTO student VALUES(720, 'jack','smith', '2012-01-12','jsmith@school.edu')
+--------------
+
+Query OK, 1 row affected (0.14 sec)
+
+--------------
+INSERT INTO student VALUES(730, 'noah', 'audry', '2012-01-01','naudry@school.edu')
+--------------
+
+Query OK, 1 row affected (0.29 sec)
+
+--------------
+INSERT INTO student VALUES(740, 'rhonda','taylor', '2012-09-01','rtaylor@school.edu')
+--------------
+
+Query OK, 1 row affected (0.31 sec)
+
+--------------
+INSERT INTO student VALUES(750, 'robert','ben', '2012-03-01','rben@school.edu')
+--------------
+
+Query OK, 1 row affected (0.18 sec)
+
+--------------
+INSERT INTO student VALUES(760, 'jeanne','ben', '2012-03-01','jben@school.edu')
+--------------
+
+Query OK, 1 row affected (0.25 sec)
+
+--------------
+INSERT INTO student VALUES(770, 'mills','carmen', '2013-04-01','mcarmen@school.edu')
+--------------
+
+Query OK, 1 row affected (0.07 sec)
+
+--------------
+/* Query 3 */
+
+DESCRIBE student
+--------------
+
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| student_id | int         | NO   | PRI | NULL    |       |
+| first_name | varchar(50) | NO   |     | NULL    |       |
+| last_name  | varchar(50) | NO   |     | NULL    |       |
+| reg_year   | date        | NO   |     | NULL    |       |
+| email      | varchar(50) | NO   | UNI | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.05 sec)
+
+--------------
+/* Query 4 */
+
+SELECT * 
+FROM student
+--------------
+
++------------+------------+-----------+------------+--------------------+
+| student_id | first_name | last_name | reg_year   | email              |
++------------+------------+-----------+------------+--------------------+
+|        720 | jack       | smith     | 2012-01-12 | jsmith@school.edu  |
+|        730 | noah       | audry     | 2012-01-01 | naudry@school.edu  |
+|        740 | rhonda     | taylor    | 2012-09-01 | rtaylor@school.edu |
+|        750 | robert     | ben       | 2012-03-01 | rben@school.edu    |
+|        760 | jeanne     | ben       | 2012-03-01 | jben@school.edu    |
+|        770 | mills      | carmen    | 2013-04-01 | mcarmen@school.edu |
++------------+------------+-----------+------------+--------------------+
+6 rows in set (0.00 sec)
+
+mysql> notee
