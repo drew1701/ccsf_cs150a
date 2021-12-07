@@ -41,7 +41,31 @@ WHERE c.dept_id = 20
 ORDER BY c.course_id;
 
 -- Q 6
-SELECT course_id, course_name, exam_grade, exam_id
-FROM course c JOIN exam_grade eg
-    ON c.course_id = eg.course_id
-WHERE c.course_id IN (190, 191, 192);
+-- making test case
+INSERT INTO exam_result VALUES(720,199,500,42);
+
+SELECT c.course_id, course_name, exam_grade, exam_id
+FROM course c JOIN exam_result er
+    ON c.course_id = er.course_id
+WHERE c.course_id IN (190, 191, 192)
+ORDER BY c.course_id;
+
+-- Q 7
+SELECT student_id, exam_grade, er.course_id, course_name
+FROM exam_result er LEFT JOIN course c
+    ON er.course_id = c.course_id
+ORDER BY student_id, er.course_id;
+    
+-- Q 8
+SELECT exam_id, exam_grade,
+       CONCAT_WS(' ', first_name, last_name) AS 'Student Name'
+FROM exam_result er JOIN student s
+    ON er.student_id = s.student_id
+ORDER BY exam_id, exam_grade DESC;
+
+-- Q 9
+-- make test case
+-- making test case
+INSERT INTO student VALUES(720, 'jack','smith', '2012-01-12','jsmith@school.edu', 600);
+INSERT INTO student_att VALUES( 720,100, 180, 21,'y');
+
