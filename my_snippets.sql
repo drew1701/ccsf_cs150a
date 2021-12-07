@@ -61,5 +61,16 @@ FROM tablelist
 [ORDER BY order_by_list]
 
 
+-- base create table block
+CREATE TABLE student(
+    student_id INT NOT NULL,
+    first_name VARCHAR(30) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    reg_year DATE NOT NULL,
+    email VARCHAR(60) NOT NULL,
+    parent_id INT NOT NULL,
+    CONSTRAINT student_pk PRIMARY KEY (student_id),
+    CONSTRAINT student_email_uk UNIQUE (email)
+) ENGINE = INNODB;
 
 

@@ -1,0 +1,240 @@
+MongoDB shell version v5.0.4
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("4cd1e401-0995-43d6-b2be-ce5734ff54d0") }
+MongoDB server version: 5.0.4
+================
+Warning: the "mongo" shell has been superseded by "mongosh",
+which delivers improved usability and compatibility.The "mongo" shell has been deprecated and will be removed in
+an upcoming release.
+For installation instructions, see
+https://docs.mongodb.com/mongodb-shell/install/
+================
+switched to db library
+library.user
+WriteResult({ "nInserted" : 1 })
+{ "_id" : ObjectId("61a566f58873805a3a0a5d52"), "display" : "Peggy Marsh", "age" : 21 }
+{ "_id" : ObjectId("61a566f58873805a3a0a5d53"), "display" : "Betsy Malone", "age" : 24 }
+{ "_id" : ObjectId("61a566f58873805a3a0a5d54"), "display" : "Tony Miles", "age" : 23 }
+{ "_id" : ObjectId("61a566f58873805a3a0a5d57"), "display" : "Allen Horne", "age" : 20 }
+{ "_id" : ObjectId("61a566f58873805a3a0a5d58"), "display" : "Holly Anthony", "age" : 25 }
+{ "_id" : ObjectId("61a566f58873805a3a0a5d59"), "display" : "Tyler Pope", "age" : 19 }
+{ "_id" : ObjectId("61a566f58873805a3a0a5d5a"), "display" : "Thomas Duran", "age" : 18 }
+{ "_id" : ObjectId("61a566f58873805a3a0a5d5b"), "display" : "Iva Ramos", "age" : 24 }
+{ "_id" : ObjectId("61a566f58873805a3a0a5d5d"), "display" : "Keith Cooley", "age" : 27 }
+{ "_id" : ObjectId("61a566f58873805a3a0a5d5e"), "display" : "Jerald Gaines", "age" : 41 }
+{ "_id" : ObjectId("61a566f58873805a3a0a5d63"), "display" : "Desiree Rivas", "age" : 21 }
+{ "_id" : ObjectId("61a566f58873805a3a0a5d64"), "display" : "Angel Terrell", "age" : 20 }
+{ "_id" : ObjectId("61a566f58873805a3a0a5d67"), "display" : "Gloria Pitts", "age" : 22 }
+{ "_id" : ObjectId("61a566f58873805a3a0a5d6a"), "display" : "Jeff Owens", "age" : 23 }
+{ "fname" : "cedric", "lname" : "baldwin", "type" : "faculty" }
+{ "fname" : "robert", "lname" : "carter", "type" : "faculty" }
+{ "fname" : "kelsey", "lname" : "koch", "type" : "faculty" }
+{ "fname" : "carlton", "lname" : "morton", "type" : "faculty" }
+{
+	"_id" : ObjectId("61a566f58873805a3a0a5d4f"),
+	"display" : "Cedric Baldwin",
+	"fname" : "cedric",
+	"lname" : "baldwin",
+	"type" : "faculty",
+	"checkouts" : [
+		{
+			"id" : "91001",
+			"year" : 2017,
+			"month" : 3,
+			"day" : 31,
+			"book" : "5235",
+			"title" : "Beginner's Guide to JAVA",
+			"pubyear" : 2014,
+			"subject" : "programming"
+		},
+		{
+			"id" : "91031",
+			"year" : 2017,
+			"month" : 4,
+			"day" : 23,
+			"book" : "5252",
+			"title" : "Beyond the Database Veil",
+			"pubyear" : 2016,
+			"subject" : "database"
+		},
+		{
+			"id" : "91035",
+			"year" : 2017,
+			"month" : 4,
+			"day" : 24,
+			"book" : "5248",
+			"title" : "What You Always Wanted to Know About Database, But Were Afraid to Ask",
+			"pubyear" : 2016,
+			"subject" : "database"
+		}
+	]
+}
+{
+	"_id" : ObjectId("61a566f58873805a3a0a5d51"),
+	"display" : "Kelsey Koch",
+	"fname" : "kelsey",
+	"lname" : "koch",
+	"type" : "faculty",
+	"checkouts" : [
+		{
+			"id" : "91010",
+			"year" : 2017,
+			"month" : 4,
+			"day" : 5,
+			"book" : "5235",
+			"title" : "Beginner's Guide to JAVA",
+			"pubyear" : 2014,
+			"subject" : "programming"
+		},
+		{
+			"id" : "91027",
+			"year" : 2017,
+			"month" : 4,
+			"day" : 21,
+			"book" : "5243",
+			"title" : "DATABASES in Theory",
+			"pubyear" : 2015,
+			"subject" : "database"
+		},
+		{
+			"id" : "91026",
+			"year" : 2017,
+			"month" : 4,
+			"day" : 21,
+			"book" : "5254",
+			"title" : "Coding Style for Maintenance",
+			"pubyear" : 2017,
+			"subject" : "programming"
+		}
+	]
+}
+{
+	"_id" : ObjectId("61a566f58873805a3a0a5d56"),
+	"display" : "Jimmie Love",
+	"fname" : "jimmie",
+	"lname" : "love",
+	"type" : "student",
+	"age" : 29,
+	"checkouts" : [
+		{
+			"id" : "91017",
+			"year" : 2017,
+			"month" : 4,
+			"day" : 14,
+			"book" : "5240",
+			"title" : "iOS Programming",
+			"pubyear" : 2015,
+			"subject" : "programming"
+		}
+	]
+}
+{
+	"_id" : ObjectId("61a566f58873805a3a0a5d5f"),
+	"display" : "Iva McClain",
+	"fname" : "iva",
+	"lname" : "mcclain",
+	"type" : "student",
+	"age" : 22,
+	"checkouts" : [
+		{
+			"id" : "91053",
+			"year" : 2017,
+			"month" : 5,
+			"day" : 9,
+			"book" : "5240",
+			"title" : "iOS Programming",
+			"pubyear" : 2015,
+			"subject" : "programming"
+		}
+	]
+}
+{
+	"_id" : ObjectId("61a566f58873805a3a0a5d60"),
+	"display" : "Marina King",
+	"fname" : "marina",
+	"lname" : "king",
+	"type" : "student",
+	"age" : 22,
+	"checkouts" : [
+		{
+			"id" : "91049",
+			"year" : 2017,
+			"month" : 5,
+			"day" : 4,
+			"book" : "5240",
+			"title" : "iOS Programming",
+			"pubyear" : 2015,
+			"subject" : "programming"
+		}
+	]
+}
+{
+	"_id" : ObjectId("61a566f58873805a3a0a5d66"),
+	"display" : "Carlton Morton",
+	"fname" : "carlton",
+	"lname" : "morton",
+	"type" : "faculty",
+	"checkouts" : [
+		{
+			"id" : "91042",
+			"year" : 2017,
+			"month" : 4,
+			"day" : 29,
+			"book" : "5235",
+			"title" : "Beginner's Guide to JAVA",
+			"pubyear" : 2014,
+			"subject" : "programming"
+		},
+		{
+			"id" : "91050",
+			"year" : 2017,
+			"month" : 5,
+			"day" : 8,
+			"book" : "5236",
+			"title" : "Database in the Cloud",
+			"pubyear" : 2014,
+			"subject" : "cloud"
+		}
+	]
+}
+{
+	"_id" : ObjectId("61a566f58873805a3a0a5d68"),
+	"display" : "Zach Kelly",
+	"fname" : "zach",
+	"lname" : "kelly",
+	"type" : "student",
+	"age" : 23,
+	"checkouts" : [
+		{
+			"id" : "91039",
+			"year" : 2017,
+			"month" : 4,
+			"day" : 28,
+			"book" : "5240",
+			"title" : "iOS Programming",
+			"pubyear" : 2015,
+			"subject" : "programming"
+		},
+		{
+			"id" : "91051",
+			"year" : 2017,
+			"month" : 5,
+			"day" : 8,
+			"book" : "5237",
+			"title" : "Mastering the database environment",
+			"pubyear" : 2015,
+			"subject" : "database"
+		}
+	]
+}
+{ "fname" : "homer", "lname" : "goodman", "age" : 23 }
+{ "fname" : "jeff", "lname" : "owens", "age" : 23 }
+{ "fname" : "rena", "lname" : "mathis", "age" : 23 }
+{ "fname" : "tony", "lname" : "miles", "age" : 23 }
+{ "fname" : "wilfred", "lname" : "fuller", "age" : 23 }
+{ "fname" : "zach", "lname" : "kelly", "age" : 23 }
+{ "fname" : "betsy", "lname" : "malone", "age" : 24 }
+{ "fname" : "iva", "lname" : "ramos", "age" : 24 }
+{ "fname" : "rachel", "lname" : "cunningham", "age" : 24 }
+{ "fname" : "holly", "lname" : "anthony", "age" : 25 }
+bye
