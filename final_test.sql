@@ -42,7 +42,7 @@ ORDER BY c.course_id;
 
 -- Q 6
 -- making test case
-INSERT INTO exam_result VALUES(720,199,500,42);
+-- INSERT INTO exam_result VALUES(720,199,500,42);
 
 SELECT c.course_id, course_name, exam_grade, exam_id
 FROM course c JOIN exam_result er
@@ -64,8 +64,14 @@ FROM exam_result er JOIN student s
 ORDER BY exam_id, exam_grade DESC;
 
 -- Q 9
--- make test case
--- making test case
-INSERT INTO student VALUES(720, 'jack','smith', '2012-01-12','jsmith@school.edu', 600);
-INSERT INTO student_att VALUES( 720,100, 180, 21,'y');
+SELECT student_id, num_work_days, exam_eligibility
+FROM student_att
+WHERE exam_eligibility = 'y'
+ORDER BY student_id;
+
+-- Q10
+SELECT student_id, course_id, exam_id,
+       exam_grade - 5 AS 'corrected grade'
+FROM exam_result;
+
 

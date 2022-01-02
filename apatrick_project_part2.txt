@@ -1,0 +1,918 @@
+mysql> \. c:/150a/apatrick_project_part2.sql
+--------------
+/*  Project_Part2.sql 
+    Andrew Patrick
+    CS 150A, Fall 2021 */
+    
+use university
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- Source the provided insert data script.
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+/* ****************************************************************************/
+/*	                                                				          */
+/*														                      */
+/*	    The university Database                     			              */
+/*																		      */
+/*	                                            			                  */
+/* ****************************************************************************/
+
+/*  Insert data into the tables */
+
+USE university
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+INSERT INTO     academic_session VALUES (100, 'spring session')
+--------------
+
+Query OK, 1 row affected (0.08 sec)
+
+--------------
+INSERT INTO     academic_session VALUES (200, 'fall session')
+--------------
+
+Query OK, 1 row affected (0.12 sec)
+
+--------------
+INSERT INTO     academic_session VALUES (300, 'summer session')
+--------------
+
+Query OK, 1 row affected (0.14 sec)
+
+--------------
+INSERT INTO     department VALUES(10, 'accounting', 'mark smith')
+--------------
+
+Query OK, 1 row affected (0.13 sec)
+
+--------------
+INSERT INTO     department VALUES(20, 'biology', 'dave gold')
+--------------
+
+Query OK, 1 row affected (0.14 sec)
+
+--------------
+INSERT INTO     department VALUES(30, 'computer science', 'linda brown')
+--------------
+
+Query OK, 1 row affected (0.12 sec)
+
+--------------
+INSERT INTO     department VALUES(40, 'literature', 'anita taylor')
+--------------
+
+Query OK, 1 row affected (0.15 sec)
+
+--------------
+INSERT INTO     parent_info VALUES(600,'neil', 'smith','doris', 'smith')
+--------------
+
+Query OK, 1 row affected (0.26 sec)
+
+--------------
+INSERT INTO     parent_info VALUES(610,'william', 'ben','nita', 'ben')
+--------------
+
+Query OK, 1 row affected (0.21 sec)
+
+--------------
+INSERT INTO     parent_info VALUES(620,'sean', 'taylor','rhea', 'taylor')
+--------------
+
+Query OK, 1 row affected (0.32 sec)
+
+--------------
+INSERT INTO     parent_info VALUES(630,'dave', 'carmen','cathy', 'carmen')
+--------------
+
+Query OK, 1 row affected (0.15 sec)
+
+--------------
+INSERT INTO     parent_info VALUES(640,'john', 'audry','jane', 'audry')
+--------------
+
+Query OK, 1 row affected (0.13 sec)
+
+--------------
+INSERT INTO     student VALUES(720, 'jack','smith', '2012-01-12','jsmith@school.edu', 600)
+--------------
+
+Query OK, 1 row affected (0.32 sec)
+
+--------------
+INSERT INTO     student VALUES(730, 'noah', 'audry', '2012-01-01','naudry@school.edu', 640)
+--------------
+
+Query OK, 1 row affected (0.12 sec)
+
+--------------
+INSERT INTO     student VALUES(740, 'rhonda','taylor', '2012-09-01','rtaylor@school.edu', 620)
+--------------
+
+Query OK, 1 row affected (0.18 sec)
+
+--------------
+INSERT INTO     student VALUES(750, 'robert','ben', '2012-03-01','rben@school.edu', 610)
+--------------
+
+Query OK, 1 row affected (0.10 sec)
+
+--------------
+INSERT INTO     student VALUES(760, 'jeanne','ben', '2012-03-01','jben@school.edu', 610)
+--------------
+
+Query OK, 1 row affected (0.07 sec)
+
+--------------
+INSERT INTO     student VALUES(770, 'mills','carmen', '2013-04-01','mcarmen@school.edu', 630)
+--------------
+
+Query OK, 1 row affected (0.12 sec)
+
+--------------
+INSERT INTO     course VALUES (190, 'principles of accounting', 100, 10,NULL,NULL,'building a','101','mwf 12-1')
+--------------
+
+Query OK, 1 row affected (0.48 sec)
+
+--------------
+INSERT INTO     course VALUES (191, 'introduction to business law', 100, 10,NULL,NULL,'building b','201','thur 2-4')
+--------------
+
+Query OK, 1 row affected (0.16 sec)
+
+--------------
+INSERT INTO     course VALUES (192, 'cost accounting', 100, 10,NULL,NULL,'building c','301','tues 5-7')
+--------------
+
+Query OK, 1 row affected (0.16 sec)
+
+--------------
+INSERT INTO     course VALUES (193, 'strategic tax planning for business', 100, 10,'tax123','password',NULL,NULL,NULL)
+--------------
+
+Query OK, 1 row affected (0.10 sec)
+
+--------------
+INSERT INTO     course VALUES (194, 'general biology', 200, 20,'bio123','password',NULL,NULL,NULL)
+--------------
+
+Query OK, 1 row affected (0.19 sec)
+
+--------------
+INSERT INTO     course VALUES (195, 'cell biology', 200, 20,NULL,NULL,'building d','401','mwf 9-10')
+--------------
+
+Query OK, 1 row affected (0.18 sec)
+
+--------------
+INSERT INTO     faculty VALUES (800, 'jill', 'miller','jmill@school.edu',10000,'health',NULL,20)
+--------------
+
+Query OK, 1 row affected (0.32 sec)
+
+--------------
+INSERT INTO     faculty VALUES (810, 'james', 'borg','jborg@school.edu',30000,'health,dental',NULL,10)
+--------------
+
+Query OK, 1 row affected (0.17 sec)
+
+--------------
+INSERT INTO     faculty VALUES (820, 'lynn', 'brown','lbrown@school.edu',NULL,NULL,50,30)
+--------------
+
+Query OK, 1 row affected (0.18 sec)
+
+--------------
+INSERT INTO     faculty VALUES (830, 'arthur', 'smith','asmith@school.edu',NULL,NULL,40,10)
+--------------
+
+Query OK, 1 row affected (0.16 sec)
+
+--------------
+INSERT INTO     faculty VALUES (840, 'sally', 'jones','sjones@school.edu',50000,'health,dental,vision',NULL,40)
+--------------
+
+Query OK, 1 row affected (0.17 sec)
+
+--------------
+INSERT INTO     exam_type VALUES('mce','multiple choice exams','choose more than one answer')
+--------------
+
+Query OK, 1 row affected (0.23 sec)
+
+--------------
+INSERT INTO     exam_type VALUES('tf','true and false exams','choose either true or false')
+--------------
+
+Query OK, 1 row affected (0.09 sec)
+
+--------------
+INSERT INTO     exam_type VALUES('fib','fill in the blanks exams','type in the correct answer')
+--------------
+
+Query OK, 1 row affected (0.12 sec)
+
+--------------
+INSERT INTO     exam_type VALUES('ess','essay exams','write paragraphs')
+--------------
+
+Query OK, 1 row affected (0.10 sec)
+
+--------------
+INSERT INTO     exam_type VALUES('sa','short answer exams','write short answers')
+--------------
+
+Query OK, 1 row affected (0.06 sec)
+
+--------------
+INSERT INTO     exam VALUES(500, '2013-09-12','mce',190)
+--------------
+
+Query OK, 1 row affected (0.10 sec)
+
+--------------
+INSERT INTO     exam VALUES(510, '2013-09-15','sa', 191)
+--------------
+
+Query OK, 1 row affected (0.06 sec)
+
+--------------
+INSERT INTO     exam VALUES(520, '2013-09-18','fib', 192)
+--------------
+
+Query OK, 1 row affected (0.21 sec)
+
+--------------
+INSERT INTO     exam VALUES(530, '2014-03-21','ess', 193)
+--------------
+
+Query OK, 1 row affected (0.09 sec)
+
+--------------
+INSERT INTO     exam VALUES(540, '2014-04-02','tf', 194)
+--------------
+
+Query OK, 1 row affected (0.06 sec)
+
+--------------
+INSERT INTO     exam_result VALUES(720,190,500,91)
+--------------
+
+Query OK, 1 row affected (0.12 sec)
+
+--------------
+INSERT INTO     exam_result VALUES(720,193,520,97)
+--------------
+
+Query OK, 1 row affected (0.08 sec)
+
+--------------
+INSERT INTO     exam_result VALUES(730,195,540,87)
+--------------
+
+Query OK, 1 row affected (0.17 sec)
+
+--------------
+INSERT INTO     exam_result VALUES(730,194,530,85)
+--------------
+
+Query OK, 1 row affected (0.11 sec)
+
+--------------
+INSERT INTO     exam_result VALUES(750,192,500,60)
+--------------
+
+Query OK, 1 row affected (0.08 sec)
+
+--------------
+INSERT INTO     exam_result VALUES(750,195,510,97)
+--------------
+
+Query OK, 1 row affected (0.07 sec)
+
+--------------
+INSERT INTO     exam_result VALUES(750,191,520,78)
+--------------
+
+Query OK, 1 row affected (0.24 sec)
+
+--------------
+INSERT INTO     exam_result VALUES(760,192,540,65)
+--------------
+
+Query OK, 1 row affected (0.06 sec)
+
+--------------
+INSERT INTO     exam_result VALUES(760,191,530,60)
+--------------
+
+Query OK, 1 row affected (0.06 sec)
+
+--------------
+INSERT INTO     exam_result VALUES(760,192,510,70)
+--------------
+
+Query OK, 1 row affected (0.10 sec)
+
+--------------
+INSERT INTO     student_att VALUES( 720,100, 180, 21,'y')
+--------------
+
+Query OK, 1 row affected (0.09 sec)
+
+--------------
+INSERT INTO     student_att VALUES( 730,200, 180, 11,'y')
+--------------
+
+Query OK, 1 row affected (0.11 sec)
+
+--------------
+INSERT INTO     student_att VALUES( 740,300, 180, 12,'y')
+--------------
+
+Query OK, 1 row affected (0.09 sec)
+
+--------------
+INSERT INTO     student_att VALUES( 750,100, 180, 14,'y')
+--------------
+
+Query OK, 1 row affected (0.17 sec)
+
+--------------
+INSERT INTO     student_att VALUES( 760,200, 180, 15,'y')
+--------------
+
+Query OK, 1 row affected (0.17 sec)
+
+--------------
+INSERT INTO     student_att VALUES( 770,300, 180, 13,'y')
+--------------
+
+Query OK, 1 row affected (0.26 sec)
+
+--------------
+INSERT INTO     student_course VALUES(720,190,'a')
+--------------
+
+Query OK, 1 row affected (0.19 sec)
+
+--------------
+INSERT INTO     student_course VALUES(720,193,'b')
+--------------
+
+Query OK, 1 row affected (0.08 sec)
+
+--------------
+INSERT INTO     student_course VALUES(730,191,'c')
+--------------
+
+Query OK, 1 row affected (0.25 sec)
+
+--------------
+INSERT INTO     student_course VALUES(740,195,'f')
+--------------
+
+Query OK, 1 row affected (0.20 sec)
+
+--------------
+INSERT INTO     student_course VALUES(750,192,'a')
+--------------
+
+Query OK, 1 row affected (0.33 sec)
+
+--------------
+INSERT INTO     student_course VALUES(760,190,'b')
+--------------
+
+Query OK, 1 row affected (0.08 sec)
+
+--------------
+INSERT INTO     student_course  VALUES(760,192,'c')
+--------------
+
+Query OK, 1 row affected (0.14 sec)
+
+--------------
+INSERT INTO     student_course  VALUES(770,192,'d')
+--------------
+
+Query OK, 1 row affected (0.06 sec)
+
+--------------
+INSERT INTO     student_course VALUES(770,193,'f')
+--------------
+
+Query OK, 1 row affected (0.06 sec)
+
+--------------
+INSERT INTO     student_course  VALUES(770,194,'a')
+--------------
+
+Query OK, 1 row affected (0.17 sec)
+
+--------------
+INSERT INTO     faculty_course VALUES (800, 192,3)
+--------------
+
+Query OK, 1 row affected (0.27 sec)
+
+--------------
+INSERT INTO     faculty_course VALUES (800, 193,4)
+--------------
+
+Query OK, 1 row affected (0.31 sec)
+
+--------------
+INSERT INTO     faculty_course VALUES (800, 190,5)
+--------------
+
+Query OK, 1 row affected (0.09 sec)
+
+--------------
+INSERT INTO     faculty_course VALUES (800, 191,3)
+--------------
+
+Query OK, 1 row affected (0.20 sec)
+
+--------------
+INSERT INTO     faculty_course VALUES (810, 194,4)
+--------------
+
+Query OK, 1 row affected (0.06 sec)
+
+--------------
+INSERT INTO     faculty_course VALUES (810, 195,5)
+--------------
+
+Query OK, 1 row affected (0.20 sec)
+
+--------------
+INSERT INTO     faculty_login VALUES(800,DEFAULT)
+--------------
+
+Query OK, 1 row affected (0.29 sec)
+
+--------------
+INSERT INTO     faculty_login VALUES(810, DEFAULT)
+--------------
+
+Query OK, 1 row affected (0.19 sec)
+
+--------------
+INSERT INTO     faculty_login VALUES(840, DEFAULT)
+--------------
+
+Query OK, 1 row affected (0.12 sec)
+
+--------------
+INSERT INTO     faculty_login VALUES(820, DEFAULT)
+--------------
+
+Query OK, 1 row affected (0.11 sec)
+
+--------------
+INSERT INTO     faculty_login VALUES(830, DEFAULT)
+--------------
+
+Query OK, 1 row affected (0.06 sec)
+
+--------------
+-- Begin Queries: Final Project Part 2
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+/* Question 01 : Display the data inserted in the tables created for
+the University database. */
+
+SELECT * FROM academic_session
+--------------
+
++------------+----------------+
+| session_id | session_name   |
++------------+----------------+
+|        200 | fall session   |
+|        100 | spring session |
+|        300 | summer session |
++------------+----------------+
+3 rows in set (0.01 sec)
+
+--------------
+SELECT * FROM department
+--------------
+
++---------+------------------+--------------+
+| dept_id | dept_name        | head         |
++---------+------------------+--------------+
+|      10 | accounting       | mark smith   |
+|      20 | biology          | dave gold    |
+|      30 | computer science | linda brown  |
+|      40 | literature       | anita taylor |
++---------+------------------+--------------+
+4 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM parent_info
+--------------
+
++-----------+------------+------------+------------+------------+
+| parent_id | parent1_fn | parent1_ln | parent2_fn | parent2_ln |
++-----------+------------+------------+------------+------------+
+|       600 | neil       | smith      | doris      | smith      |
+|       610 | william    | ben        | nita       | ben        |
+|       620 | sean       | taylor     | rhea       | taylor     |
+|       630 | dave       | carmen     | cathy      | carmen     |
+|       640 | john       | audry      | jane       | audry      |
++-----------+------------+------------+------------+------------+
+5 rows in set (0.01 sec)
+
+--------------
+SELECT * FROM student
+--------------
+
++------------+------------+-----------+------------+--------------------+-----------+
+| student_id | first_name | last_name | reg_year   | email              | parent_id |
++------------+------------+-----------+------------+--------------------+-----------+
+|        720 | jack       | smith     | 2012-01-12 | jsmith@school.edu  |       600 |
+|        730 | noah       | audry     | 2012-01-01 | naudry@school.edu  |       640 |
+|        740 | rhonda     | taylor    | 2012-09-01 | rtaylor@school.edu |       620 |
+|        750 | robert     | ben       | 2012-03-01 | rben@school.edu    |       610 |
+|        760 | jeanne     | ben       | 2012-03-01 | jben@school.edu    |       610 |
+|        770 | mills      | carmen    | 2013-04-01 | mcarmen@school.edu |       630 |
++------------+------------+-----------+------------+--------------------+-----------+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM course
+--------------
+
++-----------+-------------------------------------+------------+---------+----------+----------+------------+------+-----------+
+| course_id | course_name                         | session_id | dept_id | logon_id | password | building   | room | date_time |
++-----------+-------------------------------------+------------+---------+----------+----------+------------+------+-----------+
+|       190 | principles of accounting            |        100 |      10 | NULL     | NULL     | building a | 101  | mwf 12-1  |
+|       191 | introduction to business law        |        100 |      10 | NULL     | NULL     | building b | 201  | thur 2-4  |
+|       192 | cost accounting                     |        100 |      10 | NULL     | NULL     | building c | 301  | tues 5-7  |
+|       193 | strategic tax planning for business |        100 |      10 | tax123   | password | NULL       | NULL | NULL      |
+|       194 | general biology                     |        200 |      20 | bio123   | password | NULL       | NULL | NULL      |
+|       195 | cell biology                        |        200 |      20 | NULL     | NULL     | building d | 401  | mwf 9-10  |
++-----------+-------------------------------------+------------+---------+----------+----------+------------+------+-----------+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM faculty
+--------------
+
++------------+------------+-----------+-------------------+--------+----------------------+-------------+---------+
+| faculty_id | first_name | last_name | faculty_email     | salary | insurance            | hourly_rate | dept_id |
++------------+------------+-----------+-------------------+--------+----------------------+-------------+---------+
+|        800 | jill       | miller    | jmill@school.edu  |  10000 | health               |        NULL |      20 |
+|        810 | james      | borg      | jborg@school.edu  |  30000 | health,dental        |        NULL |      10 |
+|        820 | lynn       | brown     | lbrown@school.edu |   NULL | NULL                 |          50 |      30 |
+|        830 | arthur     | smith     | asmith@school.edu |   NULL | NULL                 |          40 |      10 |
+|        840 | sally      | jones     | sjones@school.edu |  50000 | health,dental,vision |        NULL |      40 |
++------------+------------+-----------+-------------------+--------+----------------------+-------------+---------+
+5 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM exam_type
+--------------
+
++-----------+--------------------------+-----------------------------+
+| exam_type | name                     | description                 |
++-----------+--------------------------+-----------------------------+
+| ess       | essay exams              | write paragraphs            |
+| fib       | fill in the blanks exams | type in the correct answer  |
+| mce       | multiple choice exams    | choose more than one answer |
+| sa        | short answer exams       | write short answers         |
+| tf        | true and false exams     | choose either true or false |
++-----------+--------------------------+-----------------------------+
+5 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM exam
+--------------
+
++---------+------------+-----------+-----------+
+| exam_id | start_date | exam_type | course_id |
++---------+------------+-----------+-----------+
+|     500 | 2013-09-12 | mce       |       190 |
+|     510 | 2013-09-15 | sa        |       191 |
+|     520 | 2013-09-18 | fib       |       192 |
+|     530 | 2014-03-21 | ess       |       193 |
+|     540 | 2014-04-02 | tf        |       194 |
++---------+------------+-----------+-----------+
+5 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM exam_result
+--------------
+
++------------+-----------+---------+------------+
+| student_id | course_id | exam_id | exam_grade |
++------------+-----------+---------+------------+
+|        720 |       190 |     500 |         91 |
+|        720 |       193 |     520 |         97 |
+|        730 |       194 |     530 |         85 |
+|        730 |       195 |     540 |         87 |
+|        750 |       191 |     520 |         78 |
+|        750 |       192 |     500 |         60 |
+|        750 |       195 |     510 |         97 |
+|        760 |       191 |     530 |         60 |
+|        760 |       192 |     510 |         70 |
+|        760 |       192 |     540 |         65 |
++------------+-----------+---------+------------+
+10 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM student_att
+--------------
+
++------------+------------+---------------+--------------+------------------+
+| student_id | session_id | num_work_days | num_days_off | exam_eligibility |
++------------+------------+---------------+--------------+------------------+
+|        720 |        100 |           180 |           21 | y                |
+|        730 |        200 |           180 |           11 | y                |
+|        740 |        300 |           180 |           12 | y                |
+|        750 |        100 |           180 |           14 | y                |
+|        760 |        200 |           180 |           15 | y                |
+|        770 |        300 |           180 |           13 | y                |
++------------+------------+---------------+--------------+------------------+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM student_course
+--------------
+
++------------+-----------+-------+
+| student_id | course_id | grade |
++------------+-----------+-------+
+|        720 |       190 | a     |
+|        720 |       193 | b     |
+|        730 |       191 | c     |
+|        740 |       195 | f     |
+|        750 |       192 | a     |
+|        760 |       190 | b     |
+|        760 |       192 | c     |
+|        770 |       192 | d     |
+|        770 |       193 | f     |
+|        770 |       194 | a     |
++------------+-----------+-------+
+10 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM faculty_course
+--------------
+
++------------+-----------+-------------+
+| faculty_id | course_id | contact_hrs |
++------------+-----------+-------------+
+|        800 |       190 | 5           |
+|        800 |       191 | 3           |
+|        800 |       192 | 3           |
+|        800 |       193 | 4           |
+|        810 |       194 | 4           |
+|        810 |       195 | 5           |
++------------+-----------+-------------+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM faculty_login
+--------------
+
++------------+---------------------+
+| faculty_id | login_date_time     |
++------------+---------------------+
+|        800 | 2021-12-07 09:38:39 |
+|        810 | 2021-12-07 09:38:39 |
+|        820 | 2021-12-07 09:38:39 |
+|        830 | 2021-12-07 09:38:39 |
+|        840 | 2021-12-07 09:38:39 |
++------------+---------------------+
+5 rows in set (0.00 sec)
+
+--------------
+/* Question 02 : Display the different courses offered by the
+departments in the school. */
+
+SELECT course_id, course_name, dept_name
+FROM course JOIN department
+    ON course.dept_id = department.dept_id
+ORDER BY course_id
+--------------
+
++-----------+-------------------------------------+------------+
+| course_id | course_name                         | dept_name  |
++-----------+-------------------------------------+------------+
+|       190 | principles of accounting            | accounting |
+|       191 | introduction to business law        | accounting |
+|       192 | cost accounting                     | accounting |
+|       193 | strategic tax planning for business | accounting |
+|       194 | general biology                     | biology    |
+|       195 | cell biology                        | biology    |
++-----------+-------------------------------------+------------+
+6 rows in set (0.00 sec)
+
+--------------
+/* Question 03 : Display the courses offered in the Fall session. */
+
+SELECT course_name, session_name
+FROM course JOIN academic_session
+    ON course.session_id = academic_session.session_id
+WHERE session_name = 'fall session'
+--------------
+
++-----------------+--------------+
+| course_name     | session_name |
++-----------------+--------------+
+| general biology | fall session |
+| cell biology    | fall session |
++-----------------+--------------+
+2 rows in set (0.00 sec)
+
+--------------
+/* Question 04 : Display the course details, the department that offers
+the courses and students who have enrolled for those courses. */
+
+SELECT c.course_name, sc.student_id, d.dept_name
+FROM course c
+    JOIN student_course sc ON c.course_id = sc.course_id
+    JOIN department d ON c.dept_id = d.dept_id
+ORDER BY c.course_id
+--------------
+
++-------------------------------------+------------+------------+
+| course_name                         | student_id | dept_name  |
++-------------------------------------+------------+------------+
+| principles of accounting            |        720 | accounting |
+| principles of accounting            |        760 | accounting |
+| introduction to business law        |        730 | accounting |
+| cost accounting                     |        750 | accounting |
+| cost accounting                     |        760 | accounting |
+| cost accounting                     |        770 | accounting |
+| strategic tax planning for business |        720 | accounting |
+| strategic tax planning for business |        770 | accounting |
+| general biology                     |        770 | biology    |
+| cell biology                        |        740 | biology    |
++-------------------------------------+------------+------------+
+10 rows in set (0.00 sec)
+
+--------------
+/* Question 05 : Display the names of the courses, the department that
+offers those courses, and students who have enrolled for those
+courses for department 20. */
+
+SELECT c.course_name, sc.student_id, d.dept_name
+FROM course c
+    JOIN student_course sc ON c.course_id = sc.course_id
+    JOIN department d ON c.dept_id = d.dept_id
+WHERE c.dept_id = 20
+ORDER BY c.course_id
+--------------
+
++-----------------+------------+-----------+
+| course_name     | student_id | dept_name |
++-----------------+------------+-----------+
+| general biology |        770 | biology   |
+| cell biology    |        740 | biology   |
++-----------------+------------+-----------+
+2 rows in set (0.00 sec)
+
+--------------
+/* Question 06 : Display the details of the exam grades obtained by
+students who have taken courses with ID in the range of 190 to 192. */
+
+SELECT c.course_id, course_name, exam_grade, exam_id
+FROM course c JOIN exam_result er
+    ON c.course_id = er.course_id
+WHERE c.course_id IN (190, 191, 192)
+ORDER BY c.course_id
+--------------
+
++-----------+------------------------------+------------+---------+
+| course_id | course_name                  | exam_grade | exam_id |
++-----------+------------------------------+------------+---------+
+|       190 | principles of accounting     |         91 |     500 |
+|       191 | introduction to business law |         78 |     520 |
+|       191 | introduction to business law |         60 |     530 |
+|       192 | cost accounting              |         60 |     500 |
+|       192 | cost accounting              |         70 |     510 |
+|       192 | cost accounting              |         65 |     540 |
++-----------+------------------------------+------------+---------+
+6 rows in set (0.00 sec)
+
+--------------
+/* Question 07 : Retrieve the rows from the EXAM_RESULT table, even
+if there are no matching records in the COURSE table. */
+
+SELECT student_id, exam_grade, er.course_id, course_name
+FROM exam_result er LEFT JOIN course c
+    ON er.course_id = c.course_id
+ORDER BY student_id, er.course_id
+--------------
+
++------------+------------+-----------+-------------------------------------+
+| student_id | exam_grade | course_id | course_name                         |
++------------+------------+-----------+-------------------------------------+
+|        720 |         91 |       190 | principles of accounting            |
+|        720 |         97 |       193 | strategic tax planning for business |
+|        730 |         85 |       194 | general biology                     |
+|        730 |         87 |       195 | cell biology                        |
+|        750 |         78 |       191 | introduction to business law        |
+|        750 |         60 |       192 | cost accounting                     |
+|        750 |         97 |       195 | cell biology                        |
+|        760 |         60 |       191 | introduction to business law        |
+|        760 |         70 |       192 | cost accounting                     |
+|        760 |         65 |       192 | cost accounting                     |
++------------+------------+-----------+-------------------------------------+
+10 rows in set (0.00 sec)
+
+--------------
+/* Question 08 : Retrieve the exam grade obtained by each student
+for every exam attempted. */
+
+
+SELECT exam_id, exam_grade,
+       CONCAT_WS(' ', first_name, last_name) AS 'Student Name'
+FROM exam_result er JOIN student s
+    ON er.student_id = s.student_id
+ORDER BY exam_id, exam_grade DESC
+--------------
+
++---------+------------+--------------+
+| exam_id | exam_grade | Student Name |
++---------+------------+--------------+
+|     500 |         91 | jack smith   |
+|     500 |         60 | robert ben   |
+|     510 |         97 | robert ben   |
+|     510 |         70 | jeanne ben   |
+|     520 |         97 | jack smith   |
+|     520 |         78 | robert ben   |
+|     530 |         85 | noah audry   |
+|     530 |         60 | jeanne ben   |
+|     540 |         87 | noah audry   |
+|     540 |         65 | jeanne ben   |
++---------+------------+--------------+
+10 rows in set (0.00 sec)
+
+--------------
+/* Question 09 : Write a query to check if a student is eligible to
+take exams based on the number of class days attended. */
+
+SELECT student_id, num_work_days, exam_eligibility
+FROM student_att
+WHERE exam_eligibility = 'y'
+ORDER BY student_id
+--------------
+
++------------+---------------+------------------+
+| student_id | num_work_days | exam_eligibility |
++------------+---------------+------------------+
+|        720 |           180 | y                |
+|        730 |           180 | y                |
+|        740 |           180 | y                |
+|        750 |           180 | y                |
+|        760 |           180 | y                |
+|        770 |           180 | y                |
++------------+---------------+------------------+
+6 rows in set (0.00 sec)
+
+--------------
+/* Question 10 : The faculty of the different Departments realized that
+the exam grades entered in the EXAM_RESULT were showing an increased
+value of 5 points for each entry. Display the exam grades with
+5 points subtracted from the marks obtained by each student. */
+
+SELECT student_id, course_id, exam_id,
+       exam_grade - 5 AS 'corrected grade'
+FROM exam_result
+--------------
+
++------------+-----------+---------+-----------------+
+| student_id | course_id | exam_id | corrected grade |
++------------+-----------+---------+-----------------+
+|        720 |       190 |     500 |              86 |
+|        720 |       193 |     520 |              92 |
+|        730 |       194 |     530 |              80 |
+|        730 |       195 |     540 |              82 |
+|        750 |       191 |     520 |              73 |
+|        750 |       192 |     500 |              55 |
+|        750 |       195 |     510 |              92 |
+|        760 |       191 |     530 |              55 |
+|        760 |       192 |     510 |              65 |
+|        760 |       192 |     540 |              60 |
++------------+-----------+---------+-----------------+
+10 rows in set (0.00 sec)
+
+mysql> notee
