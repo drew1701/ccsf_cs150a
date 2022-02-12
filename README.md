@@ -1,2 +1,2 @@
 # ccsf_cs150a
-SQL Homework
+Intro MySQL
